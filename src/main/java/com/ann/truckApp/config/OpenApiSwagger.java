@@ -23,6 +23,10 @@ import org.springframework.context.annotation.Configuration;
                         description = "DEV ENV",
                         url = "http://localhost:8080"
                 ),
+                @Server(
+                        description = "SERVER ENV",
+                        url = "truckapp-main-production.up.railway.app"
+                )
 
         },
         security = {
