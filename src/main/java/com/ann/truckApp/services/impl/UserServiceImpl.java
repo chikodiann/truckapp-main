@@ -78,6 +78,7 @@ public class UserServiceImpl implements UserService {
                 .type(Type.valueOf(customer.getType()))
                 .password(passwordEncoder.encode(customer.getPassword()))
                 .phoneNumber(customer.getPhoneNumber())
+                .subscriptionTier("1 MONTH")
                 .status(false)
                 .build());
     }

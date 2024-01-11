@@ -27,14 +27,16 @@ public class DriverServiceImpl implements DriverService {
     @Override
     public BaseResponse<?> getAllDriver(){
         Users user = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).get();
-if(user == null && !user.getType().name().equals(Type.CUSTOMER)){
+if(user == null){
     throw new IllegalStateException("User " + SecurityContextHolder.getContext().getAuthentication().getName() + "is not found");
 }
         BaseResponse baseResponse;
-        List<DriverResponse> driverResponseList = userRepository.findAll()
+        List<DriverResponse> driverResponseList = userRepository.findUsersByType(Type.DRIVER)
                 .stream()
                 .map((value)->{
-                 return    modelMapper.map(value,DriverResponse.class);
+                     return    modelMapper.map(value, DriverResponse.class);
+
+
                 })
                 .toList();
         baseResponse = new BaseResponse<>();

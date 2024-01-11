@@ -23,10 +23,12 @@ public class Users {
     private String phoneNumber;
     private String email;
     private String password;
-    @Column(name = "subscription_tier", nullable = false)
+    @Column(name = "subscription_tier")
     private String subscriptionTier;
     @Enumerated(EnumType.STRING)
     private Type type;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Trip> trips;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Ads> ads;
 }

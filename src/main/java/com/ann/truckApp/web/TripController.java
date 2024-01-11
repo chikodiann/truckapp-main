@@ -26,5 +26,4 @@ public class TripController {
         return new ResponseEntity<>(tripService.createTrip(tripDTO),HttpStatus.CREATED);
     }
 
-    // Other trip-related endpoints
 }
