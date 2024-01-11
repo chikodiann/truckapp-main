@@ -13,8 +13,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class TripServiceImpl implements TripService {
-    @Autowired
-    private TripService service;
+
     @Autowired
     private TripRepository tripRepository;
     @Autowired
