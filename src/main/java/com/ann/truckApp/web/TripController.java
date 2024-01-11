@@ -21,7 +21,7 @@ public class TripController {
     private final TripService tripService;
 
     @PostMapping("/create")
-    public ResponseEntity<BaseResponse<String>> createTrip(@RequestBody TripDTO tripDTO) {
+    public ResponseEntity<BaseResponse<?>> createTrip(@RequestBody TripDTO tripDTO) {
 
         return new ResponseEntity<>(tripService.createTrip(tripDTO),HttpStatus.CREATED);
     }
