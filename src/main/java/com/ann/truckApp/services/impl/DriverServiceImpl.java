@@ -1,8 +1,10 @@
 package com.ann.truckApp.services.impl;
 
 import com.ann.truckApp.domain.enums.Type;
+import com.ann.truckApp.domain.model.Notification;
 import com.ann.truckApp.domain.model.Trip;
 import com.ann.truckApp.domain.model.Users;
+import com.ann.truckApp.domain.repository.NotificationRepository;
 import com.ann.truckApp.domain.repository.TripRepository;
 import com.ann.truckApp.domain.repository.UserRepository;
 import com.ann.truckApp.dto.response.BaseResponse;
@@ -24,6 +26,9 @@ public class DriverServiceImpl implements DriverService {
 
     @Autowired
     private TripRepository tripRepository;
+
+    @Autowired
+    private NotificationRepository notificationRepository;
     @Override
     public BaseResponse<?> getAllDriver(){
         Users user = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).get();
@@ -53,11 +58,16 @@ if(user == null){
         Users driver = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName())
                 .orElseThrow(()->new RuntimeException("Could not find"));
         Trip trip = tripRepository.findById(tripId).get();
-        if(driver.getType().name().equals(Type.DRIVER)) {
+        if(driver.getType().equals(Type.DRIVER)) {
             if (trip == null) {
                 throw new IllegalStateException("Trip not found");
             }
             trip.setStatus(true);
+            Notification notification = new Notification();
+            notification.setTrip(trip);
+            notification.setMessage("trip have been accepted");
+            notificationRepository.save(notification);
+            trip.getNotifications().add(notification);
             tripRepository.save(trip);
             baseResponse = new BaseResponse<>();
             baseResponse.setMessage("Trip accepted");
