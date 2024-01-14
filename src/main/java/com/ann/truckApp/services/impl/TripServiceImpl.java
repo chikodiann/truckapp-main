@@ -27,13 +27,12 @@ public class TripServiceImpl implements TripService {
     @Autowired
     private UserRepository userRepository;
     @Override
-    public BaseResponse<?> createTrip(TripDTO tripDTO) {
+    public BaseResponse<Object> createTrip(TripDTO tripDTO) {
         BaseResponse baseResponse;
 
         Users users = userRepository.findById(tripDTO.getUserId())
                 .orElseThrow(() -> new RuntimeException("Could not find a user"));
 
-            System.out.println("cust");
             Users driver  = userRepository.findById(tripDTO.getDriverId()).get();
             if(driver.getType().equals(Type.DRIVER)){
                 System.out.println("****** ");

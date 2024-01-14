@@ -1,5 +1,6 @@
 package com.ann.truckApp.domain.model;
 
+import com.ann.truckApp.domain.enums.TIER;
 import com.ann.truckApp.domain.enums.Type;
 import jakarta.persistence.*;
 import lombok.*;
@@ -23,8 +24,8 @@ public class Users {
     private String phoneNumber;
     private String email;
     private String password;
-    @Column(name = "subscription_tier")
-    private String subscriptionTier;
+    @Enumerated(EnumType.STRING)
+    private TIER subscriptionTier;
     @Enumerated(EnumType.STRING)
     private Type type;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)

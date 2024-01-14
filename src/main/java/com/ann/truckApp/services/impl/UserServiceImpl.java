@@ -1,5 +1,6 @@
 package com.ann.truckApp.services.impl;
 
+import com.ann.truckApp.domain.enums.TIER;
 import com.ann.truckApp.domain.enums.Type;
 import com.ann.truckApp.domain.model.Users;
 import com.ann.truckApp.domain.repository.UserRepository;
@@ -78,7 +79,7 @@ public class UserServiceImpl implements UserService {
                 .type(Type.valueOf(customer.getType()))
                 .password(passwordEncoder.encode(customer.getPassword()))
                 .phoneNumber(customer.getPhoneNumber())
-                .subscriptionTier("1 MONTH")
+                .subscriptionTier(TIER.TIER_C)
                 .status(false)
                 .build());
     }

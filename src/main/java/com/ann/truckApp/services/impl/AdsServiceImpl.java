@@ -5,11 +5,14 @@ import com.ann.truckApp.domain.model.Users;
 import com.ann.truckApp.domain.repository.AdsRepository;
 import com.ann.truckApp.domain.repository.UserRepository;
 import com.ann.truckApp.dto.request.AdsRequest;
+import com.ann.truckApp.dto.request.WhatsappMessageRequest;
 import com.ann.truckApp.dto.response.BaseResponse;
 import com.ann.truckApp.exceptions.CustomerNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 @Service
 public class AdsServiceImpl {
@@ -17,6 +20,8 @@ public class AdsServiceImpl {
     private UserRepository userRepository;
     @Autowired
     private AdsRepository adsRepository;
+    @Autowired
+    private RestTemplate restTemplate;
 
     public BaseResponse<?> addAds(AdsRequest adsRequest){
         Users users = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName())
@@ -28,6 +33,18 @@ public class AdsServiceImpl {
         ads.setLastName(ads.getLastName());
         ads.setTypeVehicle(adsRequest.getTypeVehicle());
         adsRepository.save(ads);
+        WhatsappMessageRequest whatsappMessageRequest = new WhatsappMessageRequest();
+        whatsappMessageRequest.setMessagingProduct("");
+        whatsappMessageRequest.setTo(adsRequest.getTo_());
+        whatsappMessageRequest.setType("template");
+        WhatsappMessageRequest.Template template = new WhatsappMessageRequest.Template();
+        template.setName(adsRequest.getLastName());
+        WhatsappMessageRequest.Language language = new WhatsappMessageRequest.Language();
+        language.setCode("en_US");
+        template.setLanguage(language);
+        whatsappMessageRequest.setTemplate(template);
+        ResponseEntity<WhatsappMessageRequest> response= restTemplate.postForEntity("",whatsappMessageRequest,WhatsappMessageRequest.class);
+        System.out.println(response.getBody());
         return new BaseResponse<>(ads);
 
     }
