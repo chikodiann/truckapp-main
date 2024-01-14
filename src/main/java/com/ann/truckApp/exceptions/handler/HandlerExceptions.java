@@ -20,4 +20,5 @@ public class HandlerExceptions {
         BaseResponse<CustomExceptionResponse> apiResponse = new BaseResponse<>(customExceptionResponse);
         return new ResponseEntity<>(apiResponse,HttpStatus.NOT_FOUND);
     }
+
 }

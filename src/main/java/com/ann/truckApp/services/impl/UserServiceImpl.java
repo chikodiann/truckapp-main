@@ -62,7 +62,7 @@ public class UserServiceImpl implements UserService {
             SecurityContextHolder.getContext().setAuthentication(authentication);
             return new BaseResponse<>(loginResponse(jwtToken,refreshtoken,users));
         }
-        throw  new RuntimeException("INVALID_CREDENTIALS");
+        throw  new CustomerNotFoundException("INVALID_CREDENTIALS");
     }
     private LoginResponse loginResponse(String jwt, String refreshToken, Users customer){
         return LoginResponse.builder()
