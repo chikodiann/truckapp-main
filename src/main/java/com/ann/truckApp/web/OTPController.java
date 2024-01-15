@@ -15,12 +15,12 @@ import org.springframework.web.bind.annotation.*;
 public class OTPController {
     @Autowired
     private OTPService otpService;
-
+    @CrossOrigin("*")
     @GetMapping("/verify-otp")
     public ResponseEntity<BaseResponse<?>> verify_otp(@RequestParam("email") String email, @RequestParam("otp") String otp ){
         return new ResponseEntity<>(otpService.verify_otp(email,otp), HttpStatus.OK);
     }
-
+    @CrossOrigin("*")
     @GetMapping("/resend-otp")
     public ResponseEntity<BaseResponse<?>> resend_otp(@RequestParam("email") String email ){
         return new ResponseEntity<>(otpService.resendOTP(email), HttpStatus.OK);

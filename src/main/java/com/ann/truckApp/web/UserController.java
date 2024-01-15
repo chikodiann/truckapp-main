@@ -7,10 +7,7 @@ import com.ann.truckApp.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/api/v1")
 @RestController
@@ -18,12 +15,12 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
+    @CrossOrigin("*")
     @PostMapping("/register")
     public ResponseEntity<BaseResponse<?>> create(@RequestBody HandleRegisterDTO handleRegisterDTO){
         return new ResponseEntity<>(userService.handleRegister(handleRegisterDTO), HttpStatus.CREATED);
     }
-
+    @CrossOrigin("*")
     @PostMapping("/login")
     public ResponseEntity<BaseResponse<?>> login(@RequestBody HandleLoginDTO handleLoginDTO){
         return new ResponseEntity<>(userService.handleLogin(handleLoginDTO), HttpStatus.OK);
