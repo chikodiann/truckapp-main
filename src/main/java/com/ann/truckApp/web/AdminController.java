@@ -1,7 +1,7 @@
 package com.ann.truckApp.web;
 
 import com.ann.truckApp.dto.response.BaseResponse;
-import com.ann.truckApp.services.impl.SubscriptionService;
+import com.ann.truckApp.services.impl.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/subscriptions")
-public class SubscriptionController {
+public class AdminController {
 
     @Autowired
-    private SubscriptionService subscriptionService;
+    private AdminService subscriptionService;
 
     @PostMapping("/update/{userId}")
     public ResponseEntity<BaseResponse<?>> updateSubscriptionTier(@PathVariable Long userId, @RequestParam String newSubscriptionTier) {

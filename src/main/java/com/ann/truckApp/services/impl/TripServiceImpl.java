@@ -1,5 +1,6 @@
 package com.ann.truckApp.services.impl;
 
+import com.ann.truckApp.domain.enums.TIER;
 import com.ann.truckApp.domain.enums.Type;
 import com.ann.truckApp.domain.model.Notification;
 import com.ann.truckApp.domain.model.Trip;
@@ -9,6 +10,7 @@ import com.ann.truckApp.domain.repository.TripRepository;
 import com.ann.truckApp.domain.repository.UserRepository;
 import com.ann.truckApp.dto.request.TripDTO;
 import com.ann.truckApp.dto.response.BaseResponse;
+import com.ann.truckApp.exceptions.ExceptionClass;
 import com.ann.truckApp.services.TripService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -27,11 +29,13 @@ public class TripServiceImpl implements TripService {
     @Autowired
     private UserRepository userRepository;
     @Override
-    public BaseResponse<Object> createTrip(TripDTO tripDTO) {
+    public BaseResponse<String> createTrip(TripDTO tripDTO) {
         BaseResponse baseResponse;
+        System.out.println(1111);
 
         Users users = userRepository.findById(tripDTO.getUserId())
-                .orElseThrow(() -> new RuntimeException("Could not find a user"));
+                .orElseThrow(() -> new ExceptionClass("Could not find a user"));
+
 
             Users driver  = userRepository.findById(tripDTO.getDriverId()).get();
             if(driver.getType().equals(Type.DRIVER)){
@@ -40,22 +44,23 @@ public class TripServiceImpl implements TripService {
                 trip.setUser(users);
                 trip.setDriverId(driver.getId());
                 trip.setFromCity(tripDTO.getFromCity());
-
+                trip.setVehicle(tripDTO.getVehicle_type());
                 trip.setToCity(tripDTO.getToCity());
                 trip.setStatus(false);
                 Notification notification = new Notification();
                 notification.setTrip(trip);
                 notification.setMessage("trip");
-                notificationRepository.save(notification);
+
                 trip.setNotifications(List.of(notification));
                 tripRepository.save(trip);
+                notificationRepository.save(notification);
                 baseResponse = new BaseResponse<>();
                 baseResponse.setStatusCode(200);
-                baseResponse.setData(trip);
+                baseResponse.setData("success");
                 baseResponse.setMessage("Successfully booked a trip with "+ driver.getEmail());
                 return baseResponse;
             }else{
-                throw new IllegalArgumentException("Invalid");
+                throw new ExceptionClass("Invalid");
             }
 
 

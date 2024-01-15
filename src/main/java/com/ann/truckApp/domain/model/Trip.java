@@ -18,7 +18,6 @@ public class Trip {
     private Long id;
     private Long driverId;
     private boolean status;
-
     private String country;
     private String postalCode;
     private String vehicle;

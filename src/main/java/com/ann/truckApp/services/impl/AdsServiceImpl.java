@@ -7,7 +7,7 @@ import com.ann.truckApp.domain.repository.UserRepository;
 import com.ann.truckApp.dto.request.AdsRequest;
 import com.ann.truckApp.dto.request.WhatsappMessageRequest;
 import com.ann.truckApp.dto.response.BaseResponse;
-import com.ann.truckApp.exceptions.CustomerNotFoundException;
+import com.ann.truckApp.exceptions.ExceptionClass;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,7 +25,7 @@ public class AdsServiceImpl {
 
     public BaseResponse<?> addAds(AdsRequest adsRequest){
         Users users = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName())
-                .orElseThrow(()->new CustomerNotFoundException("Could not find"));
+                .orElseThrow(()->new ExceptionClass("Could not find"));
         Ads ads = new Ads();
         ads.setEmail(ads.getEmail());
         ads.setUser(users);

@@ -15,6 +15,7 @@ public class TripDTO {
     private String toCity;
     private Long userId;
     private Long driverId;
+    private String vehicle_type;
 
 
 

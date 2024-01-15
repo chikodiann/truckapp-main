@@ -9,7 +9,7 @@ import com.ann.truckApp.dto.request.HandleRegisterDTO;
 import com.ann.truckApp.dto.response.BaseResponse;
 import com.ann.truckApp.dto.response.LoginResponse;
 import com.ann.truckApp.dto.response.RegisterResponse;
-import com.ann.truckApp.exceptions.CustomerNotFoundException;
+import com.ann.truckApp.exceptions.ExceptionClass;
 import com.ann.truckApp.security.JwtService;
 import com.ann.truckApp.services.OTPService;
 import com.ann.truckApp.services.UserService;
@@ -39,10 +39,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public BaseResponse<?> handleRegister(HandleRegisterDTO handleRegisterDTO) {
         if(String.valueOf(handleRegisterDTO.getEmail()).isEmpty()){
-            throw new CustomerNotFoundException("CUSTOMER_ERROR");
+            throw new ExceptionClass("CUSTOMER_ERROR");
         }
         if(userRepository.existsByEmail(handleRegisterDTO.getEmail())){
-            throw new CustomerNotFoundException("CUSTOMER_ALREADY_EXIST");
+            throw new ExceptionClass("CUSTOMER_ALREADY_EXIST");
         }
         Users saveCustomer = saveUser(handleRegisterDTO);
         String otp = OtpUtils.generateOtp();
@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public BaseResponse<?> handleLogin(HandleLoginDTO handleLoginDTO) {
         Users users = userRepository.findByEmail(handleLoginDTO.getEmail())
-                .orElseThrow(()->new CustomerNotFoundException("USER_NOT_FOUND"));
+                .orElseThrow(()->new ExceptionClass("USER_NOT_FOUND"));
         if(users.isStatus() && passwordEncoder.matches(handleLoginDTO.getPassword(),users.getPassword())){
             Authentication authentication = new UsernamePasswordAuthenticationToken(users.getEmail(),users.getPassword());
             String jwtToken = jwtService.generateToken(authentication);
@@ -63,7 +63,7 @@ public class UserServiceImpl implements UserService {
             SecurityContextHolder.getContext().setAuthentication(authentication);
             return new BaseResponse<>(loginResponse(jwtToken,refreshtoken,users));
         }
-        throw  new CustomerNotFoundException("INVALID_CREDENTIALS");
+        throw  new ExceptionClass("INVALID_CREDENTIALS");
     }
     private LoginResponse loginResponse(String jwt, String refreshToken, Users customer){
         return LoginResponse.builder()

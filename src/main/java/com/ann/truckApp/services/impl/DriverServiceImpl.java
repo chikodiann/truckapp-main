@@ -9,6 +9,7 @@ import com.ann.truckApp.domain.repository.TripRepository;
 import com.ann.truckApp.domain.repository.UserRepository;
 import com.ann.truckApp.dto.response.BaseResponse;
 import com.ann.truckApp.dto.response.DriverResponse;
+import com.ann.truckApp.exceptions.ExceptionClass;
 import com.ann.truckApp.services.DriverService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,10 +54,11 @@ if(user == null){
     }
 
     @Override
-    public BaseResponse<?> acceptTrip(Long tripId){
+    public BaseResponse<String> acceptTrip(Long tripId){
+        System.out.println(111);
         BaseResponse baseResponse;
         Users driver = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName())
-                .orElseThrow(()->new RuntimeException("Could not find"));
+                .orElseThrow(()->new ExceptionClass("Could not find"));
         Trip trip = tripRepository.findById(tripId).get();
         if(driver.getType().equals(Type.DRIVER)) {
             if (trip == null) {
@@ -71,7 +73,7 @@ if(user == null){
             tripRepository.save(trip);
             baseResponse = new BaseResponse<>();
             baseResponse.setMessage("Trip accepted");
-            baseResponse.setData(trip);
+            baseResponse.setData(trip.getUser().getEmail()+"have been accepted");
             baseResponse.setStatusCode(200);
             return baseResponse;
         }

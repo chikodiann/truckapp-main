@@ -37,7 +37,6 @@ public class JwtService {
     public String generateToken(Authentication authentication) {
         final HashMap<String,Object> hashMap = new HashMap<>();
 
-        hashMap.put("Company","SMS-PROVIDER");
         return buildToken(hashMap, authentication, jwtExpiration);
     }
     public String generateRefreshToken(Authentication authentication) {

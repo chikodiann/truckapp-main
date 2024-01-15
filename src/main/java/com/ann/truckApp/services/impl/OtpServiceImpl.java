@@ -6,7 +6,7 @@ import com.ann.truckApp.domain.repository.OTPRepository;
 import com.ann.truckApp.domain.repository.UserRepository;
 import com.ann.truckApp.dto.response.BaseResponse;
 import com.ann.truckApp.events.listenersRequest.EventRegister;
-import com.ann.truckApp.exceptions.CustomerNotFoundException;
+import com.ann.truckApp.exceptions.ExceptionClass;
 import com.ann.truckApp.services.OTPService;
 import com.ann.truckApp.utils.OtpUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -49,7 +49,7 @@ public class OtpServiceImpl implements OTPService {
     @Override
     public BaseResponse<String> verify_otp(String email,String otp) {
         Users users = userRepository.findByEmail(email)
-                .orElseThrow(()->new CustomerNotFoundException("CUSTOMER_NOT_FOUND"));
+                .orElseThrow(()->new ExceptionClass("CUSTOMER_NOT_FOUND"));
 
         OTP optUser = otpRepository.findByUsers(users)
                 .orElseThrow(()-> new RuntimeException("OTP_NOT_FOUND"));
@@ -75,7 +75,7 @@ public class OtpServiceImpl implements OTPService {
     @Override
     public BaseResponse<String> resendOTP(String email) {
         Users users =userRepository.findByEmail(email)
-                .orElseThrow(()-> new CustomerNotFoundException("CUSTOMER_NOT_FOUND"));
+                .orElseThrow(()-> new ExceptionClass("CUSTOMER_NOT_FOUND"));
         sendotp_message(users, OtpUtils.generateOtp());
         return new BaseResponse<>("OTP_SENT_TO_MAIL");
     }
