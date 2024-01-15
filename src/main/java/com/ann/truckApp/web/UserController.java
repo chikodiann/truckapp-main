@@ -15,12 +15,12 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-    @CrossOrigin("*")
+    @CrossOrigin(origins = "*")
     @PostMapping("/register")
     public ResponseEntity<BaseResponse<?>> create(@RequestBody HandleRegisterDTO handleRegisterDTO){
         return new ResponseEntity<>(userService.handleRegister(handleRegisterDTO), HttpStatus.CREATED);
     }
-    @CrossOrigin("*")
+    @CrossOrigin(origins = "*")
     @PostMapping("/login")
     public ResponseEntity<BaseResponse<?>> login(@RequestBody HandleLoginDTO handleLoginDTO){
         return new ResponseEntity<>(userService.handleLogin(handleLoginDTO), HttpStatus.OK);

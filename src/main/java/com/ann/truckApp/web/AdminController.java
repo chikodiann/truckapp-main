@@ -13,8 +13,7 @@ public class AdminController {
 
     @Autowired
     private AdminService subscriptionService;
-    @CrossOrigin("*")
-
+    @CrossOrigin(origins = "*")
     @PostMapping("/update/{userId}")
     public ResponseEntity<BaseResponse<?>> updateSubscriptionTier(@PathVariable Long userId, @RequestParam String newSubscriptionTier) {
         subscriptionService.updateSubscriptionTier(userId, newSubscriptionTier);

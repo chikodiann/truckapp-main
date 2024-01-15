@@ -12,8 +12,7 @@ import org.springframework.web.bind.annotation.*;
 public class AdsController {
     @Autowired
     private AdsServiceImpl adsService;
-    @CrossOrigin("*")
-
+    @CrossOrigin(origins = "*")
     @PostMapping("/add")
     public ResponseEntity<?> addAds(@RequestBody AdsRequest adsRequest){
         return new ResponseEntity<>(adsService.addAds(adsRequest), HttpStatus.OK);

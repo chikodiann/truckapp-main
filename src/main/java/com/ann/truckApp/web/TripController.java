@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 public class TripController {
 
     private final TripService tripService;
-    @CrossOrigin("*")
+    @CrossOrigin(origins = "*")
     @PostMapping("/create")
     public ResponseEntity<BaseResponse<String>> createTrip(@RequestBody TripDTO tripDTO) {
         System.out.println(tripDTO);

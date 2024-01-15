@@ -19,7 +19,7 @@ public class NotificationController {
 
 
     private final NotificationService notificationService;
-    @CrossOrigin("*")
+    @CrossOrigin(origins = "*")
     @GetMapping("/retrieve/{tripId}")
     public ResponseEntity<BaseResponse<List<Notification>>> retrieveNotifications(@PathVariable Long tripId){
         return new ResponseEntity<>(notificationService.retrieveNotifications(tripId), HttpStatus.OK);

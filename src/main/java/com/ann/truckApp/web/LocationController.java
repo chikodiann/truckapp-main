@@ -11,7 +11,7 @@ public class LocationController {
 
     @Autowired
     private GeolocationService geolocationService;
-    @CrossOrigin("*")
+    @CrossOrigin(origins = "*")
     @GetMapping("/{cityName}")
     public BaseResponse<?> getGeoLocation(@PathVariable String cityName) {
         return geolocationService.getGeoLocation(cityName);
