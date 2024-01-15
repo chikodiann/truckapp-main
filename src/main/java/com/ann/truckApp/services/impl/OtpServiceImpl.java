@@ -56,20 +56,20 @@ public class OtpServiceImpl implements OTPService {
         if(!isValid(optUser) && !users.isStatus()){
             users.setStatus(true);
             userRepository.save(users);
-            return new BaseResponse<>(users.getEmail()+" User have been verified");
+            return new BaseResponse<>(users.getEmail()+" User has been verified");
         }else{
-            return new BaseResponse<>("INVLIAD_OTP");
+            return new BaseResponse<>("INVALID_OTP");
         }
     }
     private boolean isValid(OTP otpUser){
         LocalDateTime dateNow = LocalDateTime.now();
-        LocalDateTime dateCreatd = otpUser.getExpiration();
-        Duration duration = Duration.between(dateCreatd,dateNow);
-        long elapstTime = duration.toMinutes();
+        LocalDateTime dateCreated = otpUser.getExpiration();
+        Duration duration = Duration.between(dateCreated,dateNow);
+        long elapsedTime = duration.toMinutes();
         long minute = 4;
-        log.info("elapstTime{} ",elapstTime);
+        log.info("elapsedTime{} ",elapsedTime);
         log.info("minutes{} ",minute);
-        return   elapstTime > minute;
+        return   elapsedTime > minute;
     }
 
     @Override

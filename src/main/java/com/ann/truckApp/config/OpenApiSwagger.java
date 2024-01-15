@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 @OpenAPIDefinition(
         info = @io.swagger.v3.oas.annotations.info.Info(
                 contact = @Contact(name = "Anne", email = "ann@gmail.com", url = "https://www.github.com/ann"),
-                description = "Open API documentation for Spring security.",
+                description = "Open API documentation for Truck App.",
                 title = "API",
                 version = "1.0",
                 license = @License(name = "Apache License", url = "https://www.apache.org/licenses/LICENSE-2"),

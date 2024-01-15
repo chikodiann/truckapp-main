@@ -21,7 +21,7 @@ public class SubscriptionService {
         if(user.getType().equals(Type.ADMIN)) {
             user.setSubscriptionTier(TIER.valueOf(newSubscriptionTier));
             userRepository.save(user);
-            return new BaseResponse<>("subscriptiuon updated");
+            return new BaseResponse<>("subscription updated");
 
         }else{
             throw new CustomerNotFoundException("User not active");

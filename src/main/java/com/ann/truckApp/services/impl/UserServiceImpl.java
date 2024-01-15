@@ -79,7 +79,7 @@ public class UserServiceImpl implements UserService {
                 .type(Type.valueOf(customer.getType()))
                 .password(passwordEncoder.encode(customer.getPassword()))
                 .phoneNumber(customer.getPhoneNumber())
-                .subscriptionTier(TIER.TIER_C)
+                .subscriptionTier(TIER.FREE_TIER)
                 .status(false)
                 .build());
     }

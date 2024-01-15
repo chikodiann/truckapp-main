@@ -52,7 +52,7 @@ public class TripServiceImpl implements TripService {
                 baseResponse = new BaseResponse<>();
                 baseResponse.setStatusCode(200);
                 baseResponse.setData(trip);
-                baseResponse.setMessage("succesfully book a trip with "+ driver.getEmail());
+                baseResponse.setMessage("Successfully booked a trip with "+ driver.getEmail());
                 return baseResponse;
             }else{
                 throw new IllegalArgumentException("Invalid");
