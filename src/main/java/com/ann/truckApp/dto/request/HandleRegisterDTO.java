@@ -12,5 +12,7 @@ public class HandleRegisterDTO {
     private String email;
     private String password;
     private String type;
+    private  String firstName;
+    private  String lastName;
 
 }

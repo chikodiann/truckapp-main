@@ -13,6 +13,8 @@ public class RegisterResponse {
     private String status;
     private String message;
     private Type type;
+    private  String firstName;
+    private  String lastName;
 
 
 

@@ -78,8 +78,11 @@ public class UserServiceImpl implements UserService {
                 .email(customer.getEmail())
                 .type(Type.valueOf(customer.getType()))
                 .password(passwordEncoder.encode(customer.getPassword()))
-                .phoneNumber(customer.getPhoneNumber())
+                .phoneNumber(customer.getPhoneNumber()).
+                lastName(customer.getLastName())
+                .firstName(customer.getFirstName())
                 .subscriptionTier(TIER.FREE_TIER)
+
                 .status(false)
                 .build());
     }
