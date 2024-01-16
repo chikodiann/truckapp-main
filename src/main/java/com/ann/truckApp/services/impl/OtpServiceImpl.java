@@ -58,7 +58,7 @@ public class OtpServiceImpl implements OTPService {
             userRepository.save(users);
             return new BaseResponse<>(users.getEmail()+" User has been verified");
         }else{
-            return new BaseResponse<>("INVALID_OTP");
+            return new BaseResponse<>("INVALID_OTP has expired");
         }
     }
     private boolean isValid(OTP otpUser){
@@ -66,7 +66,7 @@ public class OtpServiceImpl implements OTPService {
         LocalDateTime dateCreated = otpUser.getExpiration();
         Duration duration = Duration.between(dateCreated,dateNow);
         long elapsedTime = duration.toMinutes();
-        long minute = 4;
+        long minute = 10;
         log.info("elapsedTime{} ",elapsedTime);
         log.info("minutes{} ",minute);
         return   elapsedTime > minute;

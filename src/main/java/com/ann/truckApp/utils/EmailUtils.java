@@ -6,14 +6,14 @@ import org.thymeleaf.context.Context;
 
 public class EmailUtils {
 
-    public static String sendHtmlEmailTemplate(TemplateEngine templateEngine, String typesubject, String email, String value,String value2){
+    public static String sendHtmlEmailTemplate(TemplateEngine templateEngine, String typesubject, String username, String otp,String value2){
         Context context = new Context();
-        String file ="";
+        String file ="otp.html";
 
-            file ="otp";
-            context.setVariable("user_name", email);
-            context.setVariable("company_name", typesubject);
-            context.setVariable("otp", value);
+        context.setVariable("user_name", username);
+        context.setVariable("subject", typesubject);
+            context.setVariable("company_name", value2);
+            context.setVariable("otp", otp);
 
         return templateEngine.process(file, context);
     }

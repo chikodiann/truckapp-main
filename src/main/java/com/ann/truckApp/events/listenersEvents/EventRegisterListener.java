@@ -39,14 +39,14 @@ public class EventRegisterListener implements ApplicationListener<EventRegister>
     }
 
     private void sendEmail(Users user,String otp) throws MessagingException, UnsupportedEncodingException {
-        String subject = "SIGNUP";
-        String companyName = "TRUCK APP";
+        String subject = "Migro - Email Confirmation OTP";
+        String companyName = "MIGRO";
         MimeMessage mimeMessage = mailConfig.customJavaMailSender().createMimeMessage();
         MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
         messageHelper.setFrom("test@gmail.com", companyName);
         messageHelper.setSubject(subject);
         messageHelper.setTo(user.getEmail());
-        String mailContent = EmailUtils.sendHtmlEmailTemplate(templateEngine,subject,user.getEmail(),otp,"APP_NAME");
+        String mailContent = EmailUtils.sendHtmlEmailTemplate(templateEngine,subject,user.getFirstName(),otp,"MIGRO");
         messageHelper.setText(mailContent, true);
         mailConfig.customJavaMailSender().send(mimeMessage);
         log.info("Email sent successfully to: " + user.getEmail());
