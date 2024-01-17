@@ -31,7 +31,5 @@ public class Users {
     @Enumerated(EnumType.STRING)
     private Type type;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Trip> trips;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Ads> ads;
 }

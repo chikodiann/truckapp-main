@@ -16,8 +16,13 @@ public class AdminController {
     @CrossOrigin(origins = "*")
     @PostMapping("/update/{userId}")
     public ResponseEntity<BaseResponse<?>> updateSubscriptionTier(@PathVariable Long userId, @RequestParam String newSubscriptionTier) {
-        subscriptionService.updateSubscriptionTier(userId, newSubscriptionTier);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(subscriptionService.updateSubscriptionTier(userId, newSubscriptionTier),HttpStatus.OK);
+    }
+
+    @CrossOrigin(origins = "*")
+    @PostMapping("/accept/{adsId}")
+    public ResponseEntity<BaseResponse<?>> accept(@PathVariable Long adsId) {
+        return new ResponseEntity<>(new BaseResponse<>(subscriptionService.accept(adsId)),HttpStatus.OK);
     }
 
 }

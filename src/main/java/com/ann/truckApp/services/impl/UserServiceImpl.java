@@ -39,10 +39,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public BaseResponse<?> handleRegister(HandleRegisterDTO handleRegisterDTO) {
         if(String.valueOf(handleRegisterDTO.getEmail()).isEmpty()){
-            throw new ExceptionClass("CUSTOMER_ERROR");
+            throw new ExceptionClass("CUSTOMER ERROR");
         }
         if(userRepository.existsByEmail(handleRegisterDTO.getEmail())){
-            throw new ExceptionClass("CUSTOMER_ALREADY_EXIST");
+            throw new ExceptionClass("CUSTOMER ALREADY EXIST");
         }
         Users saveCustomer = saveUser(handleRegisterDTO);
         String otp = OtpUtils.generateOtp();

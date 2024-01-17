@@ -17,7 +17,7 @@ public class NotificationServiceImpl implements NotificationService {
     @Override
 
     public BaseResponse<List<Notification>> retrieveNotifications(Long tripId) {
-        return new BaseResponse<>(notificationRepository.findByTripId(tripId));
+        return new BaseResponse<>(notificationRepository.findByAds_Id(tripId));
     }
 
 }

@@ -18,13 +18,6 @@ public class DriverController {
     public ResponseEntity<BaseResponse<?>> getDriverList(){
         BaseResponse baseResponse = new BaseResponse<>(driverService.getAllDriver());
         return new ResponseEntity<>(baseResponse, HttpStatus.OK);
-
     }
-    @CrossOrigin(origins = "*")
-    @GetMapping("/accept/{trip_id}")
-    public ResponseEntity<BaseResponse<String>> acceptTrip(@PathVariable("trip_id") Long trip_id) {
-        BaseResponse baseResponse = new BaseResponse<>(driverService.acceptTrip(trip_id));
-        return new ResponseEntity<>(baseResponse, HttpStatus.OK);
 
-    }
 }

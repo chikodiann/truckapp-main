@@ -2,10 +2,8 @@ package com.ann.truckApp.services.impl;
 
 import com.ann.truckApp.domain.enums.Type;
 import com.ann.truckApp.domain.model.Notification;
-import com.ann.truckApp.domain.model.Trip;
 import com.ann.truckApp.domain.model.Users;
 import com.ann.truckApp.domain.repository.NotificationRepository;
-import com.ann.truckApp.domain.repository.TripRepository;
 import com.ann.truckApp.domain.repository.UserRepository;
 import com.ann.truckApp.dto.response.BaseResponse;
 import com.ann.truckApp.dto.response.DriverResponse;
@@ -25,8 +23,7 @@ public class DriverServiceImpl implements DriverService {
     @Autowired
     private ModelMapper modelMapper;
 
-    @Autowired
-    private TripRepository tripRepository;
+
 
     @Autowired
     private NotificationRepository notificationRepository;
@@ -40,9 +37,7 @@ if(user == null){
         List<DriverResponse> driverResponseList = userRepository.findUsersByType(Type.DRIVER)
                 .stream()
                 .map((value)->{
-                     return    modelMapper.map(value, DriverResponse.class);
-
-
+                    return modelMapper.map(value, DriverResponse.class);
                 })
                 .toList();
         baseResponse = new BaseResponse<>();
@@ -50,34 +45,7 @@ if(user == null){
         baseResponse.setMessage("Driver response");
         baseResponse.setStatusCode(000);
         return baseResponse;
-
     }
 
-    @Override
-    public BaseResponse<String> acceptTrip(Long tripId){
-        System.out.println(111);
-        BaseResponse baseResponse;
-        Users driver = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName())
-                .orElseThrow(()->new ExceptionClass("Could not find"));
-        Trip trip = tripRepository.findById(tripId).get();
-        if(driver.getType().equals(Type.DRIVER)) {
-            if (trip == null) {
-                throw new IllegalStateException("Trip not found");
-            }
-            trip.setStatus(true);
-            Notification notification = new Notification();
-            notification.setTrip(trip);
-            notification.setMessage("trip have been accepted");
-            notificationRepository.save(notification);
-            trip.getNotifications().add(notification);
-            tripRepository.save(trip);
-            baseResponse = new BaseResponse<>();
-            baseResponse.setMessage("Trip accepted");
-            baseResponse.setData(trip.getUser().getEmail()+"have been accepted");
-            baseResponse.setStatusCode(200);
-            return baseResponse;
-        }
 
-        throw new IllegalStateException("User not authenticated to be a driver");
-    }
 }
