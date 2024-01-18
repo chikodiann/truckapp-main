@@ -16,12 +16,12 @@ public class OTPController {
     @Autowired
     private OTPService otpService;
     @CrossOrigin(origins = "*")
-    @GetMapping("/verify-otp")
+    @PostMapping("/verify-otp")
     public ResponseEntity<BaseResponse<?>> verify_otp(@RequestParam("email") String email, @RequestParam("otp") String otp ){
         return new ResponseEntity<>(otpService.verify_otp(email,otp), HttpStatus.OK);
     }
     @CrossOrigin(origins = "*")
-    @GetMapping("/resend-otp")
+    @PostMapping("/resend-otp")
     public ResponseEntity<BaseResponse<?>> resend_otp(@RequestParam("email") String email ){
         return new ResponseEntity<>(otpService.resendOTP(email), HttpStatus.OK);
     }
