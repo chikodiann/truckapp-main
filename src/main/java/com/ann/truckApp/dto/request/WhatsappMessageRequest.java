@@ -1,10 +1,11 @@
 package com.ann.truckApp.dto.request;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
+@Data
+
 public class WhatsappMessageRequest {
     private String messaging_product;
     private String to;

@@ -52,9 +52,6 @@ public class Ads {
 
     private LocalDateTime expiration;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private Users user;
 
     @OneToMany(mappedBy = "ads", cascade = CascadeType.ALL)
     private List<Notification> notifications;

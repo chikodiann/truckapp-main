@@ -6,10 +6,7 @@ import com.ann.truckApp.domain.model.Users;
 import com.ann.truckApp.domain.repository.AdsRepository;
 import com.ann.truckApp.domain.repository.NotificationRepository;
 import com.ann.truckApp.domain.repository.UserRepository;
-import com.ann.truckApp.dto.request.AdsRequest;
-import com.ann.truckApp.dto.request.Language;
-import com.ann.truckApp.dto.request.Template;
-import com.ann.truckApp.dto.request.WhatsappMessageRequest;
+import com.ann.truckApp.dto.request.*;
 import com.ann.truckApp.dto.response.BaseResponse;
 import com.ann.truckApp.exceptions.ExceptionClass;
 import jakarta.transaction.Transactional;
@@ -25,6 +22,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -59,23 +57,21 @@ public class AdsServiceImpl {
     }
     @Transactional
     public BaseResponse<?> addAds(AdsRequest adsRequest){
-        Users users = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName())
-                .orElseThrow(()->new ExceptionClass("Could not find"));
+
         Ads ads = new Ads();
-        ads.setEmail(users.getEmail());
-        ads.setUser(users);
+        ads.setEmail(adsRequest.getEmail());
+
         ads.setFrom_province(adsRequest.getFrom_province());
         ads.setTo_province(adsRequest.getTo_province());
         ads.setFrom_neighborhood(adsRequest.getFrom_neighborhood());
         ads.setTo_neighborhood(adsRequest.getTo_neighborhood());
         ads.setTypeLoad(adsRequest.getTypeLoad());
-        ads.setLastName(users.getLastName());
+        ads.setLastName(adsRequest.getLastName());
         ads.setFrom_city(adsRequest.getFrom_city());
         ads.setTo_city(adsRequest.getTo_city());
         ads.setTypeVehicle(adsRequest.getTypeVehicle());
         ads.setTypeVehicle(adsRequest.getTypeVehicle());
-ads.setStatus(false);
-
+ads.setStatus(true);
         Notification notification = new Notification();
         notification.setAds(ads);
         notification.setStatus(false);
@@ -95,13 +91,25 @@ ads.setStatus(false);
             whatsappMessageRequest.setType("template");
 
             Template template = new Template();
-            template.setName(adsRequest.getLastName());
+            template.setName("create_ads");
+            List<Parameter> parameters = new ArrayList<>();
+            ComponentRequest componentRequestss = new ComponentRequest();
+            List<ComponentRequest> componentRequests = new ArrayList<>();
+            for (int i = 0; i <12;i++){
+                parameters.add(new Parameter("text",whatsappMessageRequest.getMessaging_product()));
+
+            }
+            componentRequestss.setParameters(parameters);
+            componentRequestss.setType("body");
+            componentRequests.add(componentRequestss);
+            template.setComponents(componentRequests);
 
             Language language = new Language();
             language.setCode("en_US");
-//            template.setLanguage(language);
+            template.setLanguage(language);
 
             whatsappMessageRequest.setTemplate(template);
+            System.out.println(whatsappMessageRequest);
             HttpHeaders headers = new HttpHeaders();
             headers.setBearerAuth(bearerToken);
 
