@@ -16,6 +16,7 @@ public class OTP {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long otp_id;
     private String otp;
     private LocalDateTime expiration;
