@@ -52,10 +52,8 @@ public class Ads {
 
     private LocalDateTime expiration;
 
-
     @OneToMany(mappedBy = "ads", cascade = CascadeType.ALL)
     private List<Notification> notifications;
-
 
 
 }

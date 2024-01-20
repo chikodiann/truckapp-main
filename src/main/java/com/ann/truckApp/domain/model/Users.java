@@ -5,7 +5,7 @@ import com.ann.truckApp.domain.enums.Type;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
+
 
 @Entity
 @Table
@@ -29,6 +29,5 @@ public class Users {
     private TIER subscriptionTier;
     @Enumerated(EnumType.STRING)
     private Type type;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Ads> ads;
+
 }
