@@ -25,6 +25,7 @@ public class SecurityConfig {
         httpSecurity.authorizeHttpRequests(authorize ->
                 authorize.requestMatchers(
                                 "/api/v1/**",
+                                "/api/v1/otp/**",
                                 "/v2/api-docs",
                                 "/v3/api-docs",
                                 "/v3/api-docs/**",
