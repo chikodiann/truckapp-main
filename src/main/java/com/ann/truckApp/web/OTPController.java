@@ -1,10 +1,7 @@
 package com.ann.truckApp.web;
 
-import com.ann.truckApp.dto.request.HandleLoginDTO;
-import com.ann.truckApp.dto.request.HandleRegisterDTO;
 import com.ann.truckApp.dto.response.BaseResponse;
 import com.ann.truckApp.services.OTPService;
-import com.ann.truckApp.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

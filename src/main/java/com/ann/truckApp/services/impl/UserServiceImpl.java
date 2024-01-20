@@ -31,16 +31,12 @@ public class UserServiceImpl implements UserService {
     private ModelMapper modelMapper;
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
     private JwtService jwtService;
     @Autowired
     private OTPService otpService;
     @Override
     public BaseResponse<?> handleRegister(HandleRegisterDTO handleRegisterDTO) {
-        if(String.valueOf(handleRegisterDTO.getEmail()).isEmpty()){
-            throw new ExceptionClass("CUSTOMER ERROR");
-        }
         if(userRepository.existsByEmail(handleRegisterDTO.getEmail())){
             throw new ExceptionClass("CUSTOMER ALREADY EXIST");
         }
@@ -63,7 +59,7 @@ public class UserServiceImpl implements UserService {
             SecurityContextHolder.getContext().setAuthentication(authentication);
             return new BaseResponse<>(loginResponse(jwtToken,refreshtoken,users));
         }
-        throw  new ExceptionClass("INVALID_CREDENTIALS");
+        throw  new ExceptionClass("INVALID_CREDENTIALS OR ACTIVATE YOUR ACCOUNT");
     }
     private LoginResponse loginResponse(String jwt, String refreshToken, Users customer){
         return LoginResponse.builder()
@@ -76,7 +72,7 @@ public class UserServiceImpl implements UserService {
     private Users saveUser(HandleRegisterDTO customer){
         return userRepository.save(Users.builder()
                 .email(customer.getEmail())
-                .type(Type.valueOf(customer.getType()))
+                .type(customer.getType())
                 .password(passwordEncoder.encode(customer.getPassword()))
                 .phoneNumber(customer.getPhoneNumber()).
                 lastName(customer.getLastName())

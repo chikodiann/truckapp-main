@@ -12,34 +12,18 @@ import lombok.NoArgsConstructor;
 @Data
 public class AdsRequest {
 
-    @Column(nullable = false)
+
     private String lastName;
-
-    @Column(nullable = false)
+    private String fistName;
+    private String phoneNumber;
     private String email;
-
-    @Column(nullable = false)
     private String from_city;
-
-    @Column(nullable = false)
     private String from_province;
-
-    @Column(nullable = false)
     private String from_neighborhood;
-
-    @Column(nullable = false)
     private String to_city;
-
-    @Column(nullable = false)
     private String to_province;
-
-    @Column(nullable = false)
     private String to_neighborhood;
-
-    @Column(nullable = false)
     private String typeVehicle;
-
-    @Column(nullable = false)
     private String typeLoad;
 
 }

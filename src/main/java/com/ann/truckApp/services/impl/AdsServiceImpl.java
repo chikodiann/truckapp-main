@@ -7,16 +7,26 @@ import com.ann.truckApp.domain.repository.AdsRepository;
 import com.ann.truckApp.domain.repository.NotificationRepository;
 import com.ann.truckApp.domain.repository.UserRepository;
 import com.ann.truckApp.dto.request.AdsRequest;
+import com.ann.truckApp.dto.request.Language;
+import com.ann.truckApp.dto.request.Template;
 import com.ann.truckApp.dto.request.WhatsappMessageRequest;
 import com.ann.truckApp.dto.response.BaseResponse;
 import com.ann.truckApp.exceptions.ExceptionClass;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AdsServiceImpl {
@@ -29,16 +39,43 @@ public class AdsServiceImpl {
     @Autowired
     private RestTemplate restTemplate;
 
+    @Value("${whatsap.api.number}")
+    private String phone;
+
+    @Value("${token.whatsapp}")
+    private String bearerToken;
+
+
+    @Scheduled(fixedRate = 600_000)
+    public void deleteExpiredAds() {
+        LocalDateTime twentyFourHoursAgo = LocalDateTime.now().minusHours(24);
+        adsRepository.findAll()
+                .forEach(ads -> {
+                    LocalDateTime creationTime = ads.getExpiration();
+                    if (creationTime.isBefore(twentyFourHoursAgo)) {
+                        adsRepository.delete(ads);
+                    }
+                });
+    }
+    @Transactional
     public BaseResponse<?> addAds(AdsRequest adsRequest){
         Users users = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName())
                 .orElseThrow(()->new ExceptionClass("Could not find"));
         Ads ads = new Ads();
         ads.setEmail(users.getEmail());
         ads.setUser(users);
+        ads.setFrom_province(adsRequest.getFrom_province());
+        ads.setTo_province(adsRequest.getTo_province());
+        ads.setFrom_neighborhood(adsRequest.getFrom_neighborhood());
+        ads.setTo_neighborhood(adsRequest.getTo_neighborhood());
+        ads.setTypeLoad(adsRequest.getTypeLoad());
         ads.setLastName(users.getLastName());
         ads.setFrom_city(adsRequest.getFrom_city());
         ads.setTo_city(adsRequest.getTo_city());
         ads.setTypeVehicle(adsRequest.getTypeVehicle());
+        ads.setTypeVehicle(adsRequest.getTypeVehicle());
+ads.setStatus(false);
+
         Notification notification = new Notification();
         notification.setAds(ads);
         notification.setStatus(false);
@@ -48,28 +85,46 @@ public class AdsServiceImpl {
         }else{
             ads.getNotifications().add(notification);
         }
-        ads.setTypeLoad(adsRequest.getTypeLoad());
+
         adsRepository.save(ads);
         notificationRepository.save(notification);
-        WhatsappMessageRequest whatsappMessageRequest = new WhatsappMessageRequest();
-        whatsappMessageRequest.setMessagingProduct("");
-        whatsappMessageRequest.setTo(adsRequest.getTo_city());
-        whatsappMessageRequest.setType("template");
+        try {
+            WhatsappMessageRequest whatsappMessageRequest = new WhatsappMessageRequest();
+            whatsappMessageRequest.setMessaging_product("whatsapp");
+            whatsappMessageRequest.setTo(phone);
+            whatsappMessageRequest.setType("template");
 
-        WhatsappMessageRequest.Template template = new WhatsappMessageRequest.Template();
-        template.setName(adsRequest.getLastName());
+            Template template = new Template();
+            template.setName(adsRequest.getLastName());
 
-        WhatsappMessageRequest.Language language = new WhatsappMessageRequest.Language();
-        language.setCode("en_US");
-        template.setLanguage(language);
+            Language language = new Language();
+            language.setCode("en_US");
+//            template.setLanguage(language);
 
-        whatsappMessageRequest.setTemplate(template);
+            whatsappMessageRequest.setTemplate(template);
+            HttpHeaders headers = new HttpHeaders();
+            headers.setBearerAuth(bearerToken);
 
-        ResponseEntity<Object> response= restTemplate.postForEntity("https://graph.facebook.com/v18.0/186616854543443/messages",
-                whatsappMessageRequest,Object.class);
-        System.out.println(response.getBody());
-        return new BaseResponse<>(response.getBody());
-
+            HttpEntity<Object> requestEntity = new HttpEntity<>(whatsappMessageRequest, headers);
+            ResponseEntity<Object> response = restTemplate.postForEntity("https://graph.facebook.com/v18.0/186616854543443/messages",
+                    requestEntity, Object.class);
+            System.out.println(response.getBody());
+            return new BaseResponse<>(response.getBody());
+        }catch (Exception e){
+            throw  new ExceptionClass(e.getMessage());
+        }
     }
+
+
+    public List<Ads> getAds(){
+        userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName())
+                .orElseThrow(()->new ExceptionClass("Not Aunthenticated"));
+
+        return adsRepository.findAll()
+                .stream()
+                .filter(Ads::isStatus)
+                .collect(Collectors.toList());
+    }
+
 
 }

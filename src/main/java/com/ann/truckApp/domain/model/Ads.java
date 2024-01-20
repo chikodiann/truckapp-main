@@ -3,6 +3,9 @@ package com.ann.truckApp.domain.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -17,35 +20,37 @@ public class Ads {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
     private String lastName;
 
-    @Column(nullable = false)
+
     private String email;
 
-    @Column(nullable = false)
+
     private String from_city;
 
-    @Column(nullable = false)
+
     private String from_province;
 
-    @Column(nullable = false)
+
     private String from_neighborhood;
 
-    @Column(nullable = false)
+
     private String to_city;
 
-    @Column(nullable = false)
+
     private String to_province;
 
-    @Column(nullable = false)
+
+    private boolean status;
+
     private String to_neighborhood;
 
-    @Column(nullable = false)
+
     private String typeVehicle;
 
-    @Column(nullable = false)
     private String typeLoad;
+
+    private LocalDateTime expiration;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)

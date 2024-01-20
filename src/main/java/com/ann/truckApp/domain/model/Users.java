@@ -20,7 +20,6 @@ public class Users {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private boolean status;
-
     private String phoneNumber;
     private String email;
     private String password;

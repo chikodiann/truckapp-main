@@ -53,12 +53,13 @@ public class OtpServiceImpl implements OTPService {
 
         OTP optUser = otpRepository.findByUsers(users)
                 .orElseThrow(()-> new RuntimeException("OTP_NOT_FOUND"));
-        if(!isValid(optUser) && !users.isStatus()){
+        System.out.println(isValid(optUser));
+        if(isValid(optUser)){
             users.setStatus(true);
             userRepository.save(users);
             return new BaseResponse<>(users.getEmail()+" User has been verified");
         }else{
-            return new BaseResponse<>("INVALID_OTP has expired");
+            throw new ExceptionClass("INVALID_OTP has expired");
         }
     }
     private boolean isValid(OTP otpUser){
@@ -66,10 +67,10 @@ public class OtpServiceImpl implements OTPService {
         LocalDateTime dateCreated = otpUser.getExpiration();
         Duration duration = Duration.between(dateCreated,dateNow);
         long elapsedTime = duration.toMinutes();
-        long minute = 10;
+        long minute = 2;
         log.info("elapsedTime{} ",elapsedTime);
         log.info("minutes{} ",minute);
-        return   elapsedTime > minute;
+        return   elapsedTime <= minute;
     }
 
     @Override
