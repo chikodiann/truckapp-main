@@ -29,10 +29,7 @@ public class DriverServiceImpl implements DriverService {
     private NotificationRepository notificationRepository;
     @Override
     public BaseResponse<?> getAllDriver(){
-        Users user = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).get();
-if(user == null){
-    throw new IllegalStateException("User " + SecurityContextHolder.getContext().getAuthentication().getName() + "is not found");
-}
+
         BaseResponse baseResponse;
         List<DriverResponse> driverResponseList = userRepository.findAll()
                 .stream()
