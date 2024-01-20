@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @Builder
 @Entity
 public class OTP {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long otp_id;
