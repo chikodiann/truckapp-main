@@ -34,12 +34,12 @@ if(user == null){
     throw new IllegalStateException("User " + SecurityContextHolder.getContext().getAuthentication().getName() + "is not found");
 }
         BaseResponse baseResponse;
-        List<DriverResponse> driverResponseList = userRepository.findUsersByType(Type.DRIVER)
+        List<DriverResponse> driverResponseList = userRepository.findAll()
                 .stream()
-                .map((value)->{
-                    return modelMapper.map(value, DriverResponse.class);
-                })
+                .filter(driver -> driver.getType().name().equals(Type.DRIVER.name()))
+                .map(value -> modelMapper.map(value, DriverResponse.class))
                 .toList();
+
         baseResponse = new BaseResponse<>();
         baseResponse.setData(driverResponseList);
         baseResponse.setMessage("Driver response");
