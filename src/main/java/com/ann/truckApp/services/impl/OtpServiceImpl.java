@@ -67,7 +67,7 @@ public class OtpServiceImpl implements OTPService {
         LocalDateTime dateCreated = otpUser.getExpiration();
         Duration duration = Duration.between(dateCreated,dateNow);
         long elapsedTime = duration.toMinutes();
-        long minute = 2;
+        long minute = 4;
         log.info("elapsedTime{} ",elapsedTime);
         log.info("minutes{} ",minute);
         return   elapsedTime <= minute;
