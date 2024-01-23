@@ -35,13 +35,10 @@ public class AdsServiceImpl {
     private NotificationRepository notificationRepository;
     @Autowired
     private RestTemplate restTemplate;
-
     @Value("${whatsap.api.number}")
     private String phone;
-
     @Value("${token.whatsapp}")
     private String bearerToken;
-
 
     @Scheduled(fixedRate = 600_000)
     public void deleteExpiredAds() {
@@ -68,7 +65,6 @@ public class AdsServiceImpl {
         ads.setLastName(adsRequest.getLastName());
         ads.setFrom_city(adsRequest.getFrom_city());
         ads.setTo_city(adsRequest.getTo_city());
-        ads.setTypeVehicle(adsRequest.getTypeVehicle());
         ads.setTypeVehicle(adsRequest.getTypeVehicle());
 ads.setStatus(true);
         Notification notification = new Notification();
@@ -125,7 +121,7 @@ ads.setStatus(true);
 
     public List<Ads> getAds(){
         userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName())
-                .orElseThrow(()->new ExceptionClass("Not Aunthenticated"));
+                .orElseThrow(()->new ExceptionClass("Not Authenticated"));
 
         return adsRepository.findAll()
                 .stream()

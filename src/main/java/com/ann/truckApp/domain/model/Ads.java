@@ -19,39 +19,18 @@ public class Ads {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String lastName;
-
-
     private String email;
-
-
     private String from_city;
-
-
     private String from_province;
-
-
     private String from_neighborhood;
-
-
     private String to_city;
-
-
     private String to_province;
-
-
     private boolean status;
-
     private String to_neighborhood;
-
-
     private String typeVehicle;
-
     private String typeLoad;
-
     private LocalDateTime expiration;
-
     @OneToMany(mappedBy = "ads", cascade = CascadeType.ALL)
     private List<Notification> notifications;
 
