@@ -116,8 +116,10 @@ ads.setStatus(true);
 
 
     public List<Ads> getAds(){
-        return adsRepository.findAll();
-
+        return adsRepository.findAll()
+                .stream()
+                .filter(value -> value.isStatus())
+                .collect(Collectors.toList());
     }
 
 

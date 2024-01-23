@@ -22,7 +22,7 @@ public class AdsController {
     }
 
     @CrossOrigin(origins = "*")
-    @PostMapping("/getAds")
+    @GetMapping("/getAds")
     public ResponseEntity<List<Ads>> getAds(){
         return new ResponseEntity<>(adsService.getAds(),HttpStatus.OK);
     }
