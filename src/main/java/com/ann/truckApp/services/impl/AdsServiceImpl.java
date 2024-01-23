@@ -4,7 +4,6 @@ import com.ann.truckApp.domain.model.Ads;
 import com.ann.truckApp.domain.model.Notification;
 import com.ann.truckApp.domain.repository.AdsRepository;
 import com.ann.truckApp.domain.repository.NotificationRepository;
-import com.ann.truckApp.domain.repository.UserRepository;
 import com.ann.truckApp.dto.request.*;
 import com.ann.truckApp.dto.response.BaseResponse;
 import com.ann.truckApp.exceptions.ExceptionClass;
@@ -83,15 +82,27 @@ ads.setStatus(true);
             Template template = new Template();
             template.setName("create_ads");
             List<Parameter> parameters = new ArrayList<>();
-            ComponentRequest componentRequestss = new ComponentRequest();
-            List<ComponentRequest> componentRequests = new ArrayList<>();
-            for (int i = 0; i <12;i++){
-                parameters.add(new Parameter("text",whatsappMessageRequest.getMessaging_product()));
 
-            }
+            parameters.add(new Parameter("text", "Lastname: " + ads.getLastName()));
+            parameters.add(new Parameter("text", "Email: " + ads.getEmail()));
+            parameters.add(new Parameter("text", "From City: " + ads.getFrom_city()));
+            parameters.add(new Parameter("text", "From Province: " + ads.getFrom_province()));
+            parameters.add(new Parameter("text", "From Neighborhood: " + ads.getFrom_neighborhood()));
+            parameters.add(new Parameter("text", "To City: " + ads.getTo_city()));
+            parameters.add(new Parameter("text", "To Province: " + ads.getTo_province()));
+            parameters.add(new Parameter("text", "To Neighborhood: " + ads.getTo_neighborhood()));
+            parameters.add(new Parameter("text", "Type of Load: " + ads.getTypeLoad()));
+            parameters.add(new Parameter("text", "Type of Vehicle: " + ads.getTypeVehicle()));
+
+
+            ComponentRequest componentRequestss = new ComponentRequest();
+
             componentRequestss.setParameters(parameters);
             componentRequestss.setType("body");
+
+            List<ComponentRequest> componentRequests = new ArrayList<>();
             componentRequests.add(componentRequestss);
+
             template.setComponents(componentRequests);
 
             Language language = new Language();
