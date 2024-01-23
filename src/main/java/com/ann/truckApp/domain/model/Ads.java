@@ -3,6 +3,7 @@ package com.ann.truckApp.domain.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class Ads {
     private String typeVehicle;
     private String typeLoad;
     private LocalDateTime expiration;
-    @OneToMany(mappedBy = "ads", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "ads", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Notification> notifications;
 
 

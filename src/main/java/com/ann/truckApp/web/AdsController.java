@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/ads")
+@RequestMapping("/api/ads")
 public class AdsController {
     @Autowired
     private AdsServiceImpl adsService;

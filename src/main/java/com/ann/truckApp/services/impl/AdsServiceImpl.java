@@ -21,7 +21,6 @@ import org.springframework.web.client.RestTemplate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class AdsServiceImpl {
@@ -116,10 +115,7 @@ ads.setStatus(true);
 
 
     public List<Ads> getAds(){
-        return adsRepository.findAll()
-                .stream()
-                .filter(value -> value.isStatus())
-                .collect(Collectors.toList());
+        return adsRepository.findAll();
     }
 
 

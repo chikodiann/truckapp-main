@@ -1,6 +1,7 @@
 package com.ann.truckApp.domain.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,6 +18,7 @@ public class Notification {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "ads_id", nullable = false)
     private Ads ads;
@@ -25,6 +27,4 @@ public class Notification {
     private String message;
 
     private Boolean status;
-
-
 }
