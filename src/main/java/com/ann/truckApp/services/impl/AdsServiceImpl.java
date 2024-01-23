@@ -121,7 +121,7 @@ ads.setStatus(true);
 
         return adsRepository.findAll()
                 .stream()
-                .filter(Ads::isStatus)
+                .filter(value -> value.isStatus())
                 .collect(Collectors.toList());
     }
 
