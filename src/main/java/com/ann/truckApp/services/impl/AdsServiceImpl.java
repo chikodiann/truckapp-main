@@ -49,16 +49,18 @@ public class AdsServiceImpl {
     public BaseResponse<?> addAds(AdsRequest adsRequest){
         Ads ads = new Ads();
         ads.setEmail(adsRequest.getEmail());
+        ads.setFirstName((adsRequest.getFirstName()));
         ads.setLastName(adsRequest.getLastName());
         ads.setFrom_province(adsRequest.getFrom_province());
         ads.setTo_province(adsRequest.getTo_province());
         ads.setFrom_neighborhood(adsRequest.getFrom_neighborhood());
         ads.setTo_neighborhood(adsRequest.getTo_neighborhood());
         ads.setTypeLoad(adsRequest.getTypeLoad());
-        ads.setLastName(adsRequest.getLastName());
+        ads.setPhoneNumber(adsRequest.getPhoneNumber());
         ads.setFrom_city(adsRequest.getFrom_city());
         ads.setTo_city(adsRequest.getTo_city());
         ads.setTypeVehicle(adsRequest.getTypeVehicle());
+        ads.setTypeLoad(adsRequest.getTypeLoad());
 ads.setStatus(true);
         Notification notification = new Notification();
         notification.setAds(ads);
@@ -84,7 +86,9 @@ ads.setStatus(true);
             List<Parameter> parameters = new ArrayList<>();
 
             parameters.add(new Parameter("text", "Lastname: " + ads.getLastName()));
+            parameters.add(new Parameter("text", "Firstname: " + ads.getFirstName()));
             parameters.add(new Parameter("text", "Email: " + ads.getEmail()));
+            parameters.add(new Parameter("text", "Phone Number: " + ads.getPhoneNumber()));
             parameters.add(new Parameter("text", "From City: " + ads.getFrom_city()));
             parameters.add(new Parameter("text", "From Province: " + ads.getFrom_province()));
             parameters.add(new Parameter("text", "From Neighborhood: " + ads.getFrom_neighborhood()));

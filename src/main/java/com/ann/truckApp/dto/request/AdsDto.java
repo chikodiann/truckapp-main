@@ -13,6 +13,8 @@ import java.util.List;
 public class AdsDto {
     private Long id;
     private String lastName;
+    private String firstName;
+    private String phoneNumber;
     private String email;
     private String fromCity;
     private String fromProvince;

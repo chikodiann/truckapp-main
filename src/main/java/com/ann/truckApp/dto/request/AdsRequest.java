@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class AdsRequest {
     private Long id;
     private String lastName;
-    private String fistName;
+    private String firstName;
     private String phoneNumber;
     private String email;
     private String from_city;
