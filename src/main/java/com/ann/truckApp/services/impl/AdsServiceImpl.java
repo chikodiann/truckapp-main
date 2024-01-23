@@ -85,18 +85,19 @@ ads.setStatus(true);
             template.setName("create_ads");
             List<Parameter> parameters = new ArrayList<>();
 
-            parameters.add(new Parameter("text", "Lastname: " + ads.getLastName()));
-            parameters.add(new Parameter("text", "Firstname: " + ads.getFirstName()));
-            parameters.add(new Parameter("text", "Email: " + ads.getEmail()));
-            parameters.add(new Parameter("text", "Phone Number: " + ads.getPhoneNumber()));
-            parameters.add(new Parameter("text", "From City: " + ads.getFrom_city()));
-            parameters.add(new Parameter("text", "From Province: " + ads.getFrom_province()));
-            parameters.add(new Parameter("text", "From Neighborhood: " + ads.getFrom_neighborhood()));
-            parameters.add(new Parameter("text", "To City: " + ads.getTo_city()));
-            parameters.add(new Parameter("text", "To Province: " + ads.getTo_province()));
-            parameters.add(new Parameter("text", "To Neighborhood: " + ads.getTo_neighborhood()));
-            parameters.add(new Parameter("text", "Type of Load: " + ads.getTypeLoad()));
-            parameters.add(new Parameter("text", "Type of Vehicle: " + ads.getTypeVehicle()));
+            parameters.add(new Parameter("text", ads.getFirstName()));
+            parameters.add(new Parameter("text", ads.getLastName()));
+            parameters.add(new Parameter("text", ads.getPhoneNumber()));
+            parameters.add(new Parameter("text", ads.getTypeVehicle()));
+            parameters.add(new Parameter("text", ads.getEmail()));
+            parameters.add(new Parameter("text", ads.getFrom_city()));
+            parameters.add(new Parameter("text", ads.getFrom_province()));
+            parameters.add(new Parameter("text", ads.getFrom_neighborhood()));
+            parameters.add(new Parameter("text", ads.getTo_city()));
+            parameters.add(new Parameter("text", ads.getTo_province()));
+            parameters.add(new Parameter("text", ads.getTo_neighborhood()));
+            parameters.add(new Parameter("text", ads.getTypeLoad()));
+
 
 
             ComponentRequest componentRequestss = new ComponentRequest();
