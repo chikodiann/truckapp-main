@@ -116,13 +116,8 @@ ads.setStatus(true);
 
 
     public List<Ads> getAds(){
-//        userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName())
-//                .orElseThrow(()->new ExceptionClass("Not Authenticated"));
+        return adsRepository.findAll();
 
-        return adsRepository.findAll()
-                .stream()
-                .filter(value -> value.isStatus())
-                .collect(Collectors.toList());
     }
 
 
