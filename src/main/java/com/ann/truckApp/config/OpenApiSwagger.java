@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @OpenAPIDefinition(
         info = @io.swagger.v3.oas.annotations.info.Info(
-                contact = @Contact(name = "Anne", email = "ann@gmail.com", url = "https://www.github.com/ann"),
+                contact = @Contact(name = "Ann", email = "chikodiann@gmail.com", url = "https://www.github.com/chikodiann"),
                 description = "Open API documentation for Truck App.",
                 title = "API",
                 version = "1.0",
