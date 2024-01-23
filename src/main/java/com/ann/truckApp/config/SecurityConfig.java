@@ -26,7 +26,7 @@ public class SecurityConfig {
                 authorize.requestMatchers(
                                 "/api/v1/**",
                                 "/api/v1/otp/**",
-                                "/ads/**",
+                                "/ads/getAds",
                                 "/v2/api-docs",
                                 "/v3/api-docs",
                                 "/v3/api-docs/**",
@@ -36,8 +36,8 @@ public class SecurityConfig {
                                 "/configuration/security",
                                 "/swagger-ui/**",
                                 "/webjars/**",
-                                "/swagger-ui.html"
-
+                                "/swagger-ui.html",
+                                "/ads/add"
                         )
                         .permitAll()
                         .anyRequest()
