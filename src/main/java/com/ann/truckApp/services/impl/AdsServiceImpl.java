@@ -15,11 +15,9 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,8 +25,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class AdsServiceImpl {
-    @Autowired
-    private UserRepository userRepository;
     @Autowired
     private AdsRepository adsRepository;
     @Autowired
@@ -70,6 +66,7 @@ ads.setStatus(true);
         notification.setAds(ads);
         notification.setStatus(false);
         notification.setMessage(adsRequest.getFrom_neighborhood());
+
         if (ads.getNotifications()==null){
             ads.setNotifications(List.of(notification));
         }else{
@@ -119,8 +116,8 @@ ads.setStatus(true);
 
 
     public List<Ads> getAds(){
-        userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName())
-                .orElseThrow(()->new ExceptionClass("Not Authenticated"));
+//        userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName())
+//                .orElseThrow(()->new ExceptionClass("Not Authenticated"));
 
         return adsRepository.findAll()
                 .stream()
