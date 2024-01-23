@@ -55,7 +55,7 @@ public class AdsServiceImpl {
     public BaseResponse<?> addAds(AdsRequest adsRequest){
         Ads ads = new Ads();
         ads.setEmail(adsRequest.getEmail());
-        ads.setLastName(adsRequest.getLastName() != null ? adsRequest.getLastName() : "Anonymous");
+        ads.setLastName(adsRequest.getLastName());
         ads.setFrom_province(adsRequest.getFrom_province());
         ads.setTo_province(adsRequest.getTo_province());
         ads.setFrom_neighborhood(adsRequest.getFrom_neighborhood());
