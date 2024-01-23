@@ -2,7 +2,6 @@ package com.ann.truckApp.services.impl;
 
 import com.ann.truckApp.domain.model.Ads;
 import com.ann.truckApp.domain.model.Notification;
-import com.ann.truckApp.domain.model.Users;
 import com.ann.truckApp.domain.repository.AdsRepository;
 import com.ann.truckApp.domain.repository.NotificationRepository;
 import com.ann.truckApp.domain.repository.UserRepository;
