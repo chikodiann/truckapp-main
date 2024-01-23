@@ -11,8 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @Data
 public class AdsRequest {
-
-
+    private Long id;
     private String lastName;
     private String fistName;
     private String phoneNumber;
