@@ -13,32 +13,35 @@ import java.util.Properties;
 
 public class MailConfig {
 
-    @Value("${spring.mail.host}")
+    @Value("${server.mail.host}")
     private String mailHost;
 
-    @Value("${spring.mail.port}")
+    @Value("${server.mail.port}")
     private int mailPort;
 
-    @Value("${spring.mail.username}")
+    @Value("${server.mail.username}")
     private String mailUsername;
 
-    @Value("${spring.mail.password}")
+    @Value("${server.mail.password}")
     private String mailPassword;
 
     @Bean
     public JavaMailSender customJavaMailSender(){
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+        mailSender.setDefaultEncoding("utf-8");
         mailSender.setHost(mailHost);
         mailSender.setPort(mailPort);
         mailSender.setUsername(mailUsername);
         mailSender.setPassword(mailPassword);
-        Properties properties = new Properties();
+
+        Properties properties = mailSender.getJavaMailProperties();
+//        Properties properties = new Properties();
         properties.put("mail.smtp.auth", "true");
         properties.put("mail.smtp.starttls.enable", "true");
-        properties.put("mail.smtp.connectiontimeout", "100000");
-        properties.put("mail.smtp.timeout", "100000");
-        properties.put("mail.smtp.writetimeout", "10000");
-        mailSender.setJavaMailProperties(properties);
+//        properties.put("mail.smtp.connection-timeout", "100000");
+//        properties.put("mail.smtp.timeout", "100000");
+//        properties.put("mail.smtp.write timeout", "10000");
+//        mailSender.setJavaMailProperties(properties);
         return mailSender;
     }
 }

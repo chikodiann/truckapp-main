@@ -6,6 +6,7 @@ import com.ann.truckApp.events.listenersRequest.EventRegister;
 import com.ann.truckApp.utils.EmailUtils;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
@@ -16,10 +17,11 @@ import org.thymeleaf.TemplateEngine;
 import java.io.UnsupportedEncodingException;
 
 @Component
+@RequiredArgsConstructor
 @Slf4j
 public class EventRegisterListener implements ApplicationListener<EventRegister> {
-    @Autowired
-    private MailConfig mailConfig;
+
+    private final MailConfig mailConfig;
 
     @Autowired
     private TemplateEngine templateEngine;
