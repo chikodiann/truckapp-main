@@ -25,7 +25,7 @@ import org.springframework.context.annotation.Configuration;
                 ),
                 @Server(
                         description = "SERVER ENV",
-                        url = "https://truckapp-main-production.up.railway.app/"
+                        url = "https://monasseq.online/api/v1/"
                 )
 
         },
