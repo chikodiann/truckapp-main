@@ -1,4 +1,4 @@
-FROM adoptopenjdk:11-jre-hotspot
+FROM amazoncorretto:17
 
 WORKDIR /app
 
