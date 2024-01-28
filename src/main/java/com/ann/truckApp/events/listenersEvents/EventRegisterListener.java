@@ -24,6 +24,7 @@ public class EventRegisterListener implements ApplicationListener<EventRegister>
 
     @Autowired
     private TemplateEngine templateEngine;
+    private Exception CustomExceptionResponse;
     @Override
     public void onApplicationEvent(EventRegister event) {
         String otp = event.getOtp();
@@ -49,5 +50,20 @@ public class EventRegisterListener implements ApplicationListener<EventRegister>
 //        messageHelper.setText(mailContent, true);
 //        mailConfig.customJavaMailSender().send(mimeMessage);
 //        log.info("Email sent successfully to: " + user.getEmail());
+//    }
+
+//    @Override
+//    public void onApplicationEvent(EventRegister event) {
+//        String otp = event.getOtp();
+//        Users users = event.getUsers();
+//        log.info("OTP {}", otp);
+//        log.info("Users {}", users);
+//        try {
+//            sendEmail(users,otp);
+//        }
+//        catch (Exception e){
+//            log.error("Error sending email", e);
+//            throw new RuntimeException(e);
+//        }
 //    }
 }
