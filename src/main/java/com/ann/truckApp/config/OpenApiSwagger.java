@@ -25,7 +25,7 @@ import org.springframework.context.annotation.Configuration;
                 ),
                 @Server(
                         description = "SERVER ENV",
-                        url = "http://monseq.online:8080"
+                        url = "https://www.monasseq.online/"
                 )
 
         },
