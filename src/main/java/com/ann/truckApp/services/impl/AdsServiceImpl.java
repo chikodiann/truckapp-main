@@ -8,6 +8,7 @@ import com.ann.truckApp.dto.request.*;
 import com.ann.truckApp.dto.response.BaseResponse;
 import com.ann.truckApp.exceptions.ExceptionClass;
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -15,12 +16,13 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
+@Slf4j
 @Service
 public class AdsServiceImpl {
     @Autowired
@@ -121,13 +123,21 @@ ads.setStatus(true);
 
             HttpEntity<Object> requestEntity = new HttpEntity<>(whatsappMessageRequest, headers);
             ResponseEntity<Object> response = restTemplate.postForEntity("https://graph.facebook.com/v18.0/186616854543443/messages",
-                    requestEntity, Object.class);
-            System.out.println(response.getBody());
+                    requestEntity,
+                    Object.class
+            );
+            log.info("WhatsApp message sent successfully: {}", response.getBody());
+
             return new BaseResponse<>(response.getBody());
-        }catch (Exception e){
-            throw  new ExceptionClass(e.getMessage());
+        } catch (HttpClientErrorException e) {
+            log.error("Error sending WhatsApp message: {}", e.getResponseBodyAsString());
+            throw new ExceptionClass("Error sending WhatsApp message");
+        } catch (Exception e) {
+            log.error("Unexpected error: {}", e.getMessage());
+            throw new ExceptionClass("Unexpected error");
         }
     }
+
 
 
     public List<Ads> getAds(){

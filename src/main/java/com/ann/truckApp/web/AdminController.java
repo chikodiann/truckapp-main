@@ -14,7 +14,7 @@ public class AdminController {
     @Autowired
     private AdminService subscriptionService;
     @CrossOrigin(origins = "*")
-    @PostMapping("/update/{userId}")
+    @PutMapping("/update/{userId}")
     public ResponseEntity<BaseResponse<?>> updateSubscriptionTier(@PathVariable Long userId, @RequestParam String newSubscriptionTier) {
         return new ResponseEntity<>(subscriptionService.updateSubscriptionTier(userId, newSubscriptionTier),HttpStatus.OK);
     }

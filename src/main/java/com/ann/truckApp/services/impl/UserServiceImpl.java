@@ -1,7 +1,6 @@
 package com.ann.truckApp.services.impl;
 
 import com.ann.truckApp.domain.enums.TIER;
-import com.ann.truckApp.domain.enums.Type;
 import com.ann.truckApp.domain.model.Users;
 import com.ann.truckApp.domain.repository.UserRepository;
 import com.ann.truckApp.dto.request.HandleLoginDTO;
@@ -16,7 +15,6 @@ import com.ann.truckApp.services.UserService;
 import com.ann.truckApp.utils.OtpUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
