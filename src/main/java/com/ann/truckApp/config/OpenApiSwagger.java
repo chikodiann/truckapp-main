@@ -25,7 +25,7 @@ import org.springframework.context.annotation.Configuration;
                 ),
                 @Server(
                         description = "SERVER ENV",
-                        url = "https://www.monasseq.online/"
+                        url = "https://migro.onrender.com/"
                 )
 
         },
