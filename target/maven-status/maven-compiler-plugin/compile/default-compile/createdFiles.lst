@@ -1,6 +1,7 @@
 com/ann/truckApp/dto/request/ComponentRequest.class
 com/ann/truckApp/domain/model/OTP.class
 com/ann/truckApp/dto/request/Language.class
+com/ann/truckApp/config/WebConfig.class
 com/ann/truckApp/domain/model/Users$UsersBuilder.class
 com/ann/truckApp/dto/response/ResetPasswordDTO.class
 com/ann/truckApp/exceptions/ExceptionClass.class

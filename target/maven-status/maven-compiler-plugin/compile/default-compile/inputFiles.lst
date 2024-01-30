@@ -55,6 +55,7 @@
 /Users/ann/Downloads/truckapp-main/src/main/java/com/ann/truckApp/services/impl/NotificationServiceImpl.java
 /Users/ann/Downloads/truckapp-main/src/main/java/com/ann/truckApp/dto/request/NotificationDTO.java
 /Users/ann/Downloads/truckapp-main/src/main/java/com/ann/truckApp/events/listenersRequest/EventRegister.java
+/Users/ann/Downloads/truckapp-main/src/main/java/com/ann/truckApp/config/WebConfig.java
 /Users/ann/Downloads/truckapp-main/src/main/java/com/ann/truckApp/domain/model/ControlPanel.java
 /Users/ann/Downloads/truckapp-main/src/main/java/com/ann/truckApp/domain/model/Ads.java
 /Users/ann/Downloads/truckapp-main/src/main/java/com/ann/truckApp/dto/request/ComponentRequest.java
