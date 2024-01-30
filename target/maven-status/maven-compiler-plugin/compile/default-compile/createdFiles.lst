@@ -15,6 +15,7 @@ com/ann/truckApp/dto/request/NotificationDTO.class
 com/ann/truckApp/dto/response/LoginResponse.class
 com/ann/truckApp/security/JwtService.class
 com/ann/truckApp/dto/response/SenderModel.class
+com/ann/truckApp/domain/model/Admin.class
 com/ann/truckApp/services/UserService.class
 com/ann/truckApp/dto/request/Template.class
 com/ann/truckApp/domain/model/TransactionalEmail$TransactionalEmailBuilder.class
@@ -32,7 +33,6 @@ com/ann/truckApp/services/impl/OtpServiceImpl.class
 com/ann/truckApp/config/AppConfig.class
 com/ann/truckApp/services/impl/DriverServiceImpl.class
 com/ann/truckApp/exceptions/CustomExceptionResponse$CustomExceptionResponseBuilder.class
-com/ann/truckApp/domain/enums/Type.class
 com/ann/truckApp/domain/model/Ads.class
 com/ann/truckApp/events/listenersEvents/EventRegisterListener.class
 com/ann/truckApp/domain/model/ControlPanel.class
@@ -41,6 +41,7 @@ com/ann/truckApp/domain/enums/TIER.class
 com/ann/truckApp/config/MailConfig.class
 com/ann/truckApp/utils/OtpUtils.class
 com/ann/truckApp/config/RestTemplateConfig.class
+com/ann/truckApp/domain/repository/AdminRepository.class
 com/ann/truckApp/dto/request/TripDTO.class
 com/ann/truckApp/services/OTPService.class
 com/ann/truckApp/dto/request/AdsDto$AdsDtoBuilder.class

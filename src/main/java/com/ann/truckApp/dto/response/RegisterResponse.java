@@ -1,6 +1,5 @@
 package com.ann.truckApp.dto.response;
 
-import com.ann.truckApp.domain.enums.Type;
 import lombok.*;
 
 @Builder
@@ -12,7 +11,6 @@ public class RegisterResponse {
     private String email;
     private String status;
     private String message;
-    private Type type;
     private  String firstName;
     private  String lastName;
 

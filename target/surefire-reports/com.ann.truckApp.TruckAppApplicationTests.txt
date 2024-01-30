@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.ann.truckApp.TruckAppApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 22.01 s -- in com.ann.truckApp.TruckAppApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 13.75 s -- in com.ann.truckApp.TruckAppApplicationTests
