@@ -1,5 +1,6 @@
 package com.ann.truckApp.domain.repository;
 
+import com.ann.truckApp.domain.enums.Type;
 import com.ann.truckApp.domain.model.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -9,4 +10,7 @@ public interface UserRepository extends JpaRepository<Users,Long> {
 
     Optional<Users> findByEmail(String email);
     Boolean existsByEmail(String email);
+
+    Optional<Users> findUsersByType(Type type);
+
 }

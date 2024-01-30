@@ -1,6 +1,7 @@
 package com.ann.truckApp.domain.model;
 
 import com.ann.truckApp.domain.enums.TIER;
+import com.ann.truckApp.domain.enums.Type;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -10,13 +11,11 @@ import lombok.*;
 @Table
 @NoArgsConstructor
 @AllArgsConstructor
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING)
 @Builder
 @Getter
 @Setter
 @ToString
-public  class Users {
+public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -28,6 +27,8 @@ public  class Users {
     private  String lastName;
     @Enumerated(EnumType.STRING)
     private TIER subscriptionTier;
+    @Enumerated(EnumType.STRING)
+    private Type type;
     private String otp;
 
 }

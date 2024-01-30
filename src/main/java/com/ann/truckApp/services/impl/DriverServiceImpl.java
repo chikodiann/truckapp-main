@@ -1,12 +1,17 @@
 package com.ann.truckApp.services.impl;
 
+import com.ann.truckApp.domain.enums.Type;
+import com.ann.truckApp.domain.model.Notification;
+import com.ann.truckApp.domain.model.Users;
 import com.ann.truckApp.domain.repository.NotificationRepository;
 import com.ann.truckApp.domain.repository.UserRepository;
 import com.ann.truckApp.dto.response.BaseResponse;
 import com.ann.truckApp.dto.response.DriverResponse;
+import com.ann.truckApp.exceptions.ExceptionClass;
 import com.ann.truckApp.services.DriverService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,13 +33,14 @@ public class DriverServiceImpl implements DriverService {
         BaseResponse baseResponse;
         List<DriverResponse> driverResponseList = userRepository.findAll()
                 .stream()
+                .filter(driver -> driver.getType().name().equals(Type.DRIVER.name()))
                 .map(value -> modelMapper.map(value, DriverResponse.class))
                 .toList();
 
         baseResponse = new BaseResponse<>();
         baseResponse.setData(driverResponseList);
         baseResponse.setMessage("Driver response");
-        baseResponse.setStatusCode(200);
+        baseResponse.setStatusCode(000);
         return baseResponse;
     }
 

@@ -1,7 +1,6 @@
 package com.ann.truckApp.web;
 
 import com.ann.truckApp.dto.response.BaseResponse;
-import com.ann.truckApp.exceptions.ExceptionClass;
 import com.ann.truckApp.services.impl.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,18 +13,6 @@ public class AdminController {
 
     @Autowired
     private AdminService subscriptionService;
-
-    @CrossOrigin(origins = "*")
-    @PostMapping("/login")
-    public ResponseEntity<BaseResponse<?>> adminLogin(@RequestParam String username, @RequestParam String password) {
-        if ("ADMIN".equals(username) && "Admin@123456".equals(password)) {
-            String token = "your_generated_token";
-            return new ResponseEntity<>(new BaseResponse<>(token), HttpStatus.OK);
-        } else {
-            throw new ExceptionClass("Invalid admin credentials");
-        }
-    }
-
     @CrossOrigin(origins = "*")
     @PutMapping("/update/{userId}")
     public ResponseEntity<BaseResponse<?>> updateSubscriptionTier(@PathVariable Long userId, @RequestParam String newSubscriptionTier) {
@@ -37,6 +24,5 @@ public class AdminController {
     public ResponseEntity<BaseResponse<?>> accept(@PathVariable Long adsId) {
         return new ResponseEntity<>(new BaseResponse<>(subscriptionService.accept(adsId)),HttpStatus.OK);
     }
-
 
 }

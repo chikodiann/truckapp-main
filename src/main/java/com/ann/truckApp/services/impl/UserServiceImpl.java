@@ -96,6 +96,7 @@ public class UserServiceImpl implements UserService {
 
     private LoginResponse loginResponse(String jwt, String refreshToken, Users customer){
         return LoginResponse.builder()
+                .type(customer.getType())
                 .accessToken(jwt)
                 .refreshAccesstoken(refreshToken)
                 .email(customer.getEmail())
@@ -104,6 +105,7 @@ public class UserServiceImpl implements UserService {
     private Users saveUser(HandleRegisterDTO customer){
         return userRepository.save(Users.builder()
                 .email(customer.getEmail())
+                .type(customer.getType())
                 .password(passwordEncoder.encode(customer.getPassword()))
                 .phoneNumber(customer.getPhoneNumber()).
                 lastName(customer.getLastName())

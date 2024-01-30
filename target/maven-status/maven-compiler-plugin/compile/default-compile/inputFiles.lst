@@ -8,7 +8,6 @@
 /Users/ann/Downloads/truckapp-main/src/main/java/com/ann/truckApp/config/SecurityConfig.java
 /Users/ann/Downloads/truckapp-main/src/main/java/com/ann/truckApp/security/JwtService.java
 /Users/ann/Downloads/truckapp-main/src/main/java/com/ann/truckApp/web/NotificationController.java
-/Users/ann/Downloads/truckapp-main/src/main/java/com/ann/truckApp/domain/model/Admin.java
 /Users/ann/Downloads/truckapp-main/src/main/java/com/ann/truckApp/dto/response/LoginResponse.java
 /Users/ann/Downloads/truckapp-main/src/main/java/com/ann/truckApp/domain/enums/TIER.java
 /Users/ann/Downloads/truckapp-main/src/main/java/com/ann/truckApp/dto/request/TripDTO.java
@@ -45,9 +44,9 @@
 /Users/ann/Downloads/truckapp-main/src/main/java/com/ann/truckApp/dto/request/HandleLoginDTO.java
 /Users/ann/Downloads/truckapp-main/src/main/java/com/ann/truckApp/domain/repository/OTPRepository.java
 /Users/ann/Downloads/truckapp-main/src/main/java/com/ann/truckApp/domain/model/OTP.java
-/Users/ann/Downloads/truckapp-main/src/main/java/com/ann/truckApp/domain/repository/AdminRepository.java
 /Users/ann/Downloads/truckapp-main/src/main/java/com/ann/truckApp/config/MailConfig.java
 /Users/ann/Downloads/truckapp-main/src/main/java/com/ann/truckApp/services/OTPService.java
+/Users/ann/Downloads/truckapp-main/src/main/java/com/ann/truckApp/domain/enums/Type.java
 /Users/ann/Downloads/truckapp-main/src/main/java/com/ann/truckApp/web/LocationController.java
 /Users/ann/Downloads/truckapp-main/src/main/java/com/ann/truckApp/web/DriverController.java
 /Users/ann/Downloads/truckapp-main/src/main/java/com/ann/truckApp/dto/request/HandleRegisterDTO.java
