@@ -11,8 +11,6 @@ import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -119,15 +117,14 @@ ads.setStatus(true);
             template.setLanguage(language);
 
             whatsappMessageRequest.setTemplate(template);
-            System.out.println(whatsappMessageRequest);
+//            System.out.println(whatsappMessageRequest);
 
-            HttpHeaders headers = new HttpHeaders();
-            headers.set("Authorization", "Bearer " + bearerToken);
-
-
-            HttpEntity<Object> requestEntity = new HttpEntity<>(whatsappMessageRequest, headers);
+//            HttpHeaders headers = new HttpHeaders();
+//            headers.set("Authorization", "Bearer " + bearerToken);
+//            HttpEntity<Object> requestEntity = new HttpEntity<>(whatsappMessageRequest, headers);
+//
             ResponseEntity<Object> response = restTemplate.postForEntity("https://graph.facebook.com/v18.0/186616854543443/messages",
-                    requestEntity,
+                    whatsappMessageRequest,
                     Object.class
             );
             log.info("WhatsApp message sent successfully: {}", response.getBody());
