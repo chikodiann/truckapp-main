@@ -47,22 +47,23 @@ public class AdsServiceImpl {
                     }
                 });
     }
+
     @Transactional
     public BaseResponse<?> addAds(AdsRequest adsRequest){
         Ads ads = new Ads();
+        ads.setFirstname(adsRequest.getFirstName());
+        ads.setLastname(adsRequest.getLastName());
+        ads.setPhone(adsRequest.getPhone());
+        ads.setTruck_type(adsRequest.getTruck_type());
         ads.setEmail(adsRequest.getEmail());
-        ads.setFirstName((adsRequest.getFirstName()));
-        ads.setLastName(adsRequest.getLastName());
-        ads.setFrom_province(adsRequest.getFrom_province());
-        ads.setTo_province(adsRequest.getTo_province());
-        ads.setFrom_neighborhood(adsRequest.getFrom_neighborhood());
-        ads.setTo_neighborhood(adsRequest.getTo_neighborhood());
-        ads.setTypeLoad(adsRequest.getTypeLoad());
-        ads.setPhoneNumber(adsRequest.getPhoneNumber());
         ads.setFrom_city(adsRequest.getFrom_city());
+        ads.setFrom_province(adsRequest.getFrom_province());
+        ads.setFrom_neighborhood(adsRequest.getFrom_neighborhood());
         ads.setTo_city(adsRequest.getTo_city());
-        ads.setTypeVehicle(adsRequest.getTypeVehicle());
-        ads.setTypeLoad(adsRequest.getTypeLoad());
+        ads.setTo_province(adsRequest.getTo_province());
+        ads.setTo_neighborhood(adsRequest.getTo_neighborhood());
+        ads.setType_of_load(adsRequest.getType_of_load());
+
 ads.setStatus(true);
         Notification notification = new Notification();
         notification.setAds(ads);
@@ -74,7 +75,6 @@ ads.setStatus(true);
         }else{
             ads.getNotifications().add(notification);
         }
-
         adsRepository.save(ads);
         notificationRepository.save(notification);
         try {
@@ -84,13 +84,13 @@ ads.setStatus(true);
             whatsappMessageRequest.setType("template");
 
             Template template = new Template();
-            template.setName("create_ads");
+            template.setName("blocks");
             List<Parameter> parameters = new ArrayList<>();
 
-            parameters.add(new Parameter("text", ads.getFirstName()));
-            parameters.add(new Parameter("text", ads.getLastName()));
-            parameters.add(new Parameter("text", ads.getPhoneNumber()));
-            parameters.add(new Parameter("text", ads.getTypeVehicle()));
+            parameters.add(new Parameter("text", ads.getFirstname()));
+            parameters.add(new Parameter("text", ads.getLastname()));
+            parameters.add(new Parameter("text", ads.getPhone()));
+            parameters.add(new Parameter("text", ads.getTruck_type()));
             parameters.add(new Parameter("text", ads.getEmail()));
             parameters.add(new Parameter("text", ads.getFrom_city()));
             parameters.add(new Parameter("text", ads.getFrom_province()));
@@ -98,9 +98,11 @@ ads.setStatus(true);
             parameters.add(new Parameter("text", ads.getTo_city()));
             parameters.add(new Parameter("text", ads.getTo_province()));
             parameters.add(new Parameter("text", ads.getTo_neighborhood()));
-            parameters.add(new Parameter("text", ads.getTypeLoad()));
+            parameters.add(new Parameter("text", ads.getType_of_load()));
 
-
+            for (Parameter parameter : parameters) {
+                System.out.println("Parameter: " + parameter.getType() + " - " + parameter.getText());
+            }
 
             ComponentRequest componentRequestss = new ComponentRequest();
 
@@ -118,8 +120,10 @@ ads.setStatus(true);
 
             whatsappMessageRequest.setTemplate(template);
             System.out.println(whatsappMessageRequest);
+
             HttpHeaders headers = new HttpHeaders();
-            headers.setBearerAuth(bearerToken);
+            headers.set("Authorization", "Bearer " + bearerToken);
+
 
             HttpEntity<Object> requestEntity = new HttpEntity<>(whatsappMessageRequest, headers);
             ResponseEntity<Object> response = restTemplate.postForEntity("https://graph.facebook.com/v18.0/186616854543443/messages",
@@ -130,7 +134,7 @@ ads.setStatus(true);
 
             return new BaseResponse<>(response.getBody());
         } catch (HttpClientErrorException e) {
-            log.error("Error sending WhatsApp message: {}", e.getResponseBodyAsString());
+            log.error("Error sending WhatsApp message. Status code: {}, Response body: {}", e.getRawStatusCode(), e.getResponseBodyAsString());
             throw new ExceptionClass("Error sending WhatsApp message");
         } catch (Exception e) {
             log.error("Unexpected error: {}", e.getMessage());
@@ -138,11 +142,7 @@ ads.setStatus(true);
         }
     }
 
-
-
     public List<Ads> getAds(){
         return adsRepository.findAll();
     }
-
-
 }

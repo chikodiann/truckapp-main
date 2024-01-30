@@ -25,6 +25,7 @@
 /Users/ann/Downloads/truckapp-main/src/main/java/com/ann/truckApp/utils/OtpUtils.java
 /Users/ann/Downloads/truckapp-main/src/main/java/com/ann/truckApp/domain/repository/UserRepository.java
 /Users/ann/Downloads/truckapp-main/src/main/java/com/ann/truckApp/services/EmailService.java
+/Users/ann/Downloads/truckapp-main/src/main/java/com/ann/truckApp/dto/request/ForgotPasswordDTO.java
 /Users/ann/Downloads/truckapp-main/src/main/java/com/ann/truckApp/exceptions/CustomExceptionResponse.java
 /Users/ann/Downloads/truckapp-main/src/main/java/com/ann/truckApp/dto/response/GeoLocationResponse.java
 /Users/ann/Downloads/truckapp-main/src/main/java/com/ann/truckApp/dto/request/Template.java
@@ -37,6 +38,7 @@
 /Users/ann/Downloads/truckapp-main/src/main/java/com/ann/truckApp/dto/request/Parameter.java
 /Users/ann/Downloads/truckapp-main/src/main/java/com/ann/truckApp/config/OpenApiSwagger.java
 /Users/ann/Downloads/truckapp-main/src/main/java/com/ann/truckApp/utils/EmailUtils.java
+/Users/ann/Downloads/truckapp-main/src/main/java/com/ann/truckApp/dto/response/ResetPasswordDTO.java
 /Users/ann/Downloads/truckapp-main/src/main/java/com/ann/truckApp/config/ApplicationConfig.java
 /Users/ann/Downloads/truckapp-main/src/main/java/com/ann/truckApp/TruckAppApplication.java
 /Users/ann/Downloads/truckapp-main/src/main/java/com/ann/truckApp/dto/request/HandleLoginDTO.java

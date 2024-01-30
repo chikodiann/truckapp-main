@@ -11,9 +11,10 @@ import lombok.NoArgsConstructor;
 @Data
 public class AdsRequest {
     private Long id;
-    private String lastName;
     private String firstName;
-    private String phoneNumber;
+    private String lastName;
+    private String phone;
+    private String truck_type;
     private String email;
     private String from_city;
     private String from_province;
@@ -21,7 +22,6 @@ public class AdsRequest {
     private String to_city;
     private String to_province;
     private String to_neighborhood;
-    private String typeVehicle;
-    private String typeLoad;
+    private String type_of_load;
 
 }

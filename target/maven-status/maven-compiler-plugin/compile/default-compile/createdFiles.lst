@@ -2,6 +2,7 @@ com/ann/truckApp/dto/request/ComponentRequest.class
 com/ann/truckApp/domain/model/OTP.class
 com/ann/truckApp/dto/request/Language.class
 com/ann/truckApp/domain/model/Users$UsersBuilder.class
+com/ann/truckApp/dto/response/ResetPasswordDTO.class
 com/ann/truckApp/exceptions/ExceptionClass.class
 com/ann/truckApp/services/impl/GeolocationService.class
 com/ann/truckApp/dto/response/GeoLocationResponse.class
@@ -16,6 +17,8 @@ com/ann/truckApp/dto/response/SenderModel.class
 com/ann/truckApp/services/UserService.class
 com/ann/truckApp/dto/request/Template.class
 com/ann/truckApp/domain/model/TransactionalEmail$TransactionalEmailBuilder.class
+com/ann/truckApp/dto/request/ForgotPasswordDTO$ForgotPasswordDTOBuilder.class
+com/ann/truckApp/dto/response/ResetPasswordDTO$ResetPasswordDTOBuilder.class
 com/ann/truckApp/domain/model/Users.class
 com/ann/truckApp/domain/model/Ads$AdsBuilder.class
 com/ann/truckApp/services/impl/UserServiceImpl.class
@@ -74,6 +77,7 @@ com/ann/truckApp/dto/request/AdsRequest.class
 com/ann/truckApp/domain/repository/NotificationRepository.class
 com/ann/truckApp/services/impl/AdsServiceImpl.class
 com/ann/truckApp/services/NotificationService.class
+com/ann/truckApp/dto/request/ForgotPasswordDTO.class
 com/ann/truckApp/dto/response/BaseResponse.class
 com/ann/truckApp/dto/response/RegisterResponse$RegisterResponseBuilder.class
 com/ann/truckApp/web/DriverController.class

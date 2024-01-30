@@ -29,5 +29,6 @@ public class Users {
     private TIER subscriptionTier;
     @Enumerated(EnumType.STRING)
     private Type type;
+    private String otp;
 
 }

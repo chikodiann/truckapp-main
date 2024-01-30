@@ -12,22 +12,20 @@ import java.util.List;
 @NoArgsConstructor
 public class AdsDto {
     private Long id;
-    private String lastName;
     private String firstName;
-    private String phoneNumber;
+    private String lastName;
+    private String phone;
+    private String truck_type;
     private String email;
-    private String fromCity;
-    private String fromProvince;
-    private String fromNeighborhood;
-    private String toCity;
-    private String toProvince;
+    private String from_city;
+    private String from_province;
+    private String from_neighborhood;
+    private String to_city;
+    private String to_province;
+    private String to_neighborhood;
+    private String type_of_load;
     private boolean status;
-    private String toNeighborhood;
-    private String typeVehicle;
-    private String typeLoad;
     private LocalDateTime expiration;
     private List<NotificationDTO> notifications;
-
-
 }
 

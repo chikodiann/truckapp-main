@@ -17,9 +17,10 @@ public class Ads {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String lastName;
-    private String firstName;
-    private String phoneNumber;
+    private String firstname;
+    private String lastname;
+    private String phone;
+    private String truck_type;
     private String email;
     private String from_city;
     private String from_province;
@@ -27,8 +28,7 @@ public class Ads {
     private String to_city;
     private String to_province;
     private String to_neighborhood;
-    private String typeVehicle;
-    private String typeLoad;
+    private String type_of_load;
     private boolean status;
     private LocalDateTime expiration;
     @OneToMany(mappedBy = "ads", cascade = CascadeType.ALL, fetch = FetchType.EAGER)

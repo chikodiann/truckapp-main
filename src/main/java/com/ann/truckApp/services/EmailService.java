@@ -20,11 +20,28 @@ import java.util.concurrent.CompletableFuture;
 @Slf4j
 public class EmailService {
 
+//    @Value("${app.reset-password.base-url}")
+    private String resetPasswordBaseUrl;
+
     private final RestTemplateConfig restTemplateConfig;
     public CompletableFuture<?> sendOTPVerification(Users user, String subject, String emailContent ){
 
 
-        return CompletableFuture.runAsync(()->{
+        return getCompletableFuture(user, subject, emailContent);
+    }
+
+    public CompletableFuture<?> sendOtpForPasswordReset(Users user, String otp) {
+        String resetPasswordLink = resetPasswordBaseUrl + "?email=" + user.getEmail() + "&otp=" + otp;
+
+        String subject = "Reset Password OTP";
+        String emailContent = "Your OTP for resetting the password is : ** " + otp + " ** " +
+                "Please use this OTP to reset your password.";
+
+        return getCompletableFuture(user, subject, emailContent);
+    }
+
+    private CompletableFuture<?> getCompletableFuture(Users user, String subject, String emailContent) {
+        return CompletableFuture.runAsync(() -> {
             TransactionalEmail transactionalEmail = TransactionalEmail.builder()
                     .htmlContent(emailContent)
                     .sender(SenderModel.builder()
@@ -40,14 +57,14 @@ public class EmailService {
 
             HttpEntity<TransactionalEmail> httpEntity = new HttpEntity<>(transactionalEmail);
             ResponseEntity<String> response;
-            try{
-                response = restTemplateConfig.restTemplate().exchange("/smtp/email", HttpMethod.POST,httpEntity, String.class);
-                if(response.getStatusCode().is2xxSuccessful()){
+            try {
+                response = restTemplateConfig.restTemplate().exchange("/smtp/email", HttpMethod.POST, httpEntity, String.class);
+                if (response.getStatusCode().is2xxSuccessful()) {
                     log.info("Mail sent successfully to {}", user.getEmail());
-                }else{
+                } else {
                     throw new RuntimeException("Error in sending mail");
                 }
-            }catch(Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
                 throw new RuntimeException(e);
             }
