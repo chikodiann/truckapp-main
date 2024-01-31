@@ -141,6 +141,12 @@ ads.setStatus(true);
         }
     }
 
+    public Ads getAdById(Long id) {
+        return adsRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Ad not found with id: " + id));
+    }
+
+
     public List<Ads> getAds(){
         return adsRepository.findAll();
     }

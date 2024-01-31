@@ -27,4 +27,10 @@ public class AdsController {
         return new ResponseEntity<>(adsService.getAds(),HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = "*")
+    @GetMapping("/getAdById/{id}")
+    public ResponseEntity<?> getAdById(@PathVariable Long id) {
+            Ads ad = adsService.getAdById(id);
+            return new ResponseEntity<>(ad, HttpStatus.OK);
+        }
 }
