@@ -1,20 +1,20 @@
 package com.ann.truckApp.services.impl;
 
 import com.ann.truckApp.domain.enums.Type;
-import com.ann.truckApp.domain.model.Notification;
 import com.ann.truckApp.domain.model.Users;
 import com.ann.truckApp.domain.repository.NotificationRepository;
 import com.ann.truckApp.domain.repository.UserRepository;
 import com.ann.truckApp.dto.response.BaseResponse;
+import com.ann.truckApp.dto.response.DriverProfileResponse;
 import com.ann.truckApp.dto.response.DriverResponse;
 import com.ann.truckApp.exceptions.ExceptionClass;
 import com.ann.truckApp.services.DriverService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DriverServiceImpl implements DriverService {
@@ -40,8 +40,23 @@ public class DriverServiceImpl implements DriverService {
         baseResponse = new BaseResponse<>();
         baseResponse.setData(driverResponseList);
         baseResponse.setMessage("Driver response");
-        baseResponse.setStatusCode(000);
+        baseResponse.setStatusCode(200);
         return baseResponse;
+    }
+
+    @Override
+    public BaseResponse<?> getDriverProfile(Long userId) {
+        Optional<Users> userOptional = userRepository.findById(userId);
+        if (userOptional.isPresent()) {
+            Users user = userOptional.get();
+            DriverProfileResponse profileResponse = modelMapper.map(user, DriverProfileResponse.class);
+            BaseResponse baseResponse = new BaseResponse<>(profileResponse);
+            baseResponse.setMessage("Driver profile response");
+            baseResponse.setStatusCode(200);
+            return baseResponse;
+        } else {
+            throw new ExceptionClass("Driver not found");
+        }
     }
 
 

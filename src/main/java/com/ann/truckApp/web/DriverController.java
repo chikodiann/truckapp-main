@@ -21,4 +21,18 @@ public class DriverController {
     }
 
 
+    @CrossOrigin(origins = "*")
+    @GetMapping("/{userId}/profile")
+    public ResponseEntity<BaseResponse<?>> getDriverProfile(@PathVariable Long userId) {
+        try {
+            BaseResponse baseResponse = driverService.getDriverProfile(userId);
+            return new ResponseEntity<>(baseResponse, HttpStatus.OK);
+        } catch (Exception e) {
+            BaseResponse baseResponse = new BaseResponse<>();
+            baseResponse.setStatusCode(500);
+            baseResponse.setMessage("Error retrieving driver profile");
+            return new ResponseEntity<>(baseResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }

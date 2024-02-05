@@ -39,6 +39,7 @@ com/ann/truckApp/domain/model/ControlPanel.class
 com/ann/truckApp/dto/response/BaseResponse$BaseResponseBuilder.class
 com/ann/truckApp/domain/enums/TIER.class
 com/ann/truckApp/config/MailConfig.class
+com/ann/truckApp/dto/response/DriverProfileResponse.class
 com/ann/truckApp/utils/OtpUtils.class
 com/ann/truckApp/config/RestTemplateConfig.class
 com/ann/truckApp/dto/request/TripDTO.class

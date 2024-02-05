@@ -24,6 +24,7 @@
 /Users/ann/Downloads/truckapp-main/src/main/java/com/ann/truckApp/config/CustomerUserDetailsService.java
 /Users/ann/Downloads/truckapp-main/src/main/java/com/ann/truckApp/utils/OtpUtils.java
 /Users/ann/Downloads/truckapp-main/src/main/java/com/ann/truckApp/domain/repository/UserRepository.java
+/Users/ann/Downloads/truckapp-main/src/main/java/com/ann/truckApp/dto/response/DriverProfileResponse.java
 /Users/ann/Downloads/truckapp-main/src/main/java/com/ann/truckApp/services/EmailService.java
 /Users/ann/Downloads/truckapp-main/src/main/java/com/ann/truckApp/dto/request/ForgotPasswordDTO.java
 /Users/ann/Downloads/truckapp-main/src/main/java/com/ann/truckApp/exceptions/CustomExceptionResponse.java
