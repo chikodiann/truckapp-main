@@ -38,14 +38,18 @@ public class AdsServiceImpl {
 
     @Scheduled(fixedRate = 600_000)
     public void deleteExpiredAds() {
+        log.info("Scheduled task to delete expired ads started");
         LocalDateTime twentyFourHoursAgo = LocalDateTime.now().minusHours(24);
+
         adsRepository.findAll()
                 .forEach(ads -> {
-                    LocalDateTime creationTime = ads.getExpiration();
-                    if (creationTime.isBefore(twentyFourHoursAgo)) {
+                    LocalDateTime expirationTime = ads.getExpiration();
+                    if (expirationTime.isBefore(twentyFourHoursAgo)) {
+                        log.info("Deleting expired ad with ID: {}", ads.getId());
                         adsRepository.delete(ads);
                     }
                 });
+        log.info("Scheduled task to delete expired ads completed");
     }
 
     @Transactional
@@ -63,6 +67,7 @@ public class AdsServiceImpl {
         ads.setTo_province(adsRequest.getTo_province());
         ads.setTo_neighborhood(adsRequest.getTo_neighborhood());
         ads.setType_of_load(adsRequest.getType_of_load());
+        ads.setExpiration(LocalDateTime.now().plusHours(24));
 
 ads.setStatus(true);
         Notification notification = new Notification();

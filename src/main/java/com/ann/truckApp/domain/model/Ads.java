@@ -30,6 +30,8 @@ public class Ads {
     private String to_neighborhood;
     private String type_of_load;
     private boolean status;
+    @Column(name = "expiration")
+    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime expiration;
     @OneToMany(mappedBy = "ads", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Notification> notifications;
