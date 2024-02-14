@@ -41,8 +41,7 @@ public class AdsServiceImpl {
 
 
     @Transactional
-//    @Scheduled(cron = "0 */2 * * * ?")
-    @Scheduled(fixedRate = 24 * 60 * 60 * 1000)
+    @Scheduled(cron = "0 0 0/24 * * ?")
     public void deleteExpiredAds() {
         log.info("Scheduled task to delete expired ads started");
 
@@ -53,7 +52,6 @@ public class AdsServiceImpl {
                     adsRepository.findAll().forEach(ads -> {
                         LocalDateTime creationTime = ads.getCreationTimestamp();
                         LocalDateTime expirationTime = creationTime.plusHours(24);
-//                        LocalDateTime expirationTime = ads.getExpiration();
                         ads.setStatus(false);
 
 
