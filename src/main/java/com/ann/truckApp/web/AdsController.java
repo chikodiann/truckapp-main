@@ -1,6 +1,7 @@
 package com.ann.truckApp.web;
 
 import com.ann.truckApp.domain.model.Ads;
+import com.ann.truckApp.dto.request.AdsDto;
 import com.ann.truckApp.dto.request.AdsRequest;
 import com.ann.truckApp.services.impl.AdsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class AdsController {
 
     @CrossOrigin(origins = "*")
     @GetMapping("/getAds")
-    public ResponseEntity<List<Ads>> getAds(){
+    public ResponseEntity<List<AdsDto>> getAds(){
         return new ResponseEntity<>(adsService.getAds(),HttpStatus.OK);
     }
 

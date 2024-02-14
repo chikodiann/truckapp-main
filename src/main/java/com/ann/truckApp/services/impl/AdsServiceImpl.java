@@ -22,6 +22,8 @@ import org.springframework.web.client.RestTemplate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Slf4j
 @Service
 public class AdsServiceImpl {
@@ -36,21 +38,38 @@ public class AdsServiceImpl {
     @Value("${token.whatsapp}")
     private String bearerToken;
 
-    @Scheduled(fixedRate = 600_000)
+
+
+    @Transactional
+//    @Scheduled(cron = "0 */2 * * * ?")
+    @Scheduled(fixedRate = 24 * 60 * 60 * 1000)
     public void deleteExpiredAds() {
         log.info("Scheduled task to delete expired ads started");
-        LocalDateTime twentyFourHoursAgo = LocalDateTime.now().minusHours(24);
 
-        adsRepository.findAll()
-                .forEach(ads -> {
-                    LocalDateTime expirationTime = ads.getExpiration();
-                    if (expirationTime.isBefore(twentyFourHoursAgo)) {
-                        log.info("Deleting expired ad with ID: {}", ads.getId());
-                        adsRepository.delete(ads);
-                    }
-                });
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        log.info("{}",adsRepository.findAll());
+
+
+                    adsRepository.findAll().forEach(ads -> {
+                        LocalDateTime creationTime = ads.getCreationTimestamp();
+                        LocalDateTime expirationTime = creationTime.plusHours(24);
+//                        LocalDateTime expirationTime = ads.getExpiration();
+                        ads.setStatus(false);
+
+
+                            log.info("Deleting expired ad with ID: {}", ads.getId());
+                            log.info("Deleting expired ad with ID: {}", ads.getStatus());
+                            adsRepository.save(ads);
+
+                    });
+
+
+
+
         log.info("Scheduled task to delete expired ads completed");
     }
+
+
 
     @Transactional
     public BaseResponse<?> addAds(AdsRequest adsRequest){
@@ -67,9 +86,9 @@ public class AdsServiceImpl {
         ads.setTo_province(adsRequest.getTo_province());
         ads.setTo_neighborhood(adsRequest.getTo_neighborhood());
         ads.setType_of_load(adsRequest.getType_of_load());
-        ads.setExpiration(LocalDateTime.now().plusHours(24));
-
-ads.setStatus(true);
+        ads.setCreationTimestamp(LocalDateTime.now());
+        ads.setExpiration(LocalDateTime.now().plusMinutes(5));
+        ads.setStatus(true);
         Notification notification = new Notification();
         notification.setAds(ads);
         notification.setStatus(false);
@@ -152,7 +171,34 @@ ads.setStatus(true);
     }
 
 
-    public List<Ads> getAds(){
-        return adsRepository.findAll();
+    public List<AdsDto> getAds() {
+        return adsRepository.findAll()
+                .stream()
+                .filter(Ads::getStatus) // Filter only ads with status set to true
+                .map(this::mapAdsToAds)
+                .collect(Collectors.toList());
+    }
+
+    private AdsDto mapAdsToAds(Ads ads){
+        AdsDto adds = new AdsDto();
+        adds.setEmail(ads.getEmail());
+        adds.setPhone(ads.getPhone());
+        adds.setFrom_city(ads.getFrom_city());
+        adds.setFrom_province(ads.getFrom_province());
+        adds.setId(ads.getId());
+        adds.setExpiration(ads.getExpiration());
+        adds.setNotifications(ads.getNotifications().stream()
+                        .map((value)->{
+                           return new NotificationDTO(value.getMessage());
+                        })
+                .collect(Collectors.toList()));
+        adds.setFirstName(ads.getFirstname());
+        adds.setType_of_load(ads.getType_of_load());
+        adds.setFrom_neighborhood(ads.getFrom_neighborhood());
+        adds.setTo_city(ads.getTo_city());
+        adds.setStatus(ads.getStatus());
+        return adds;
+
+
     }
 }
