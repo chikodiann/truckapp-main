@@ -1,12 +1,17 @@
 package com.ann.truckApp.services.impl;
 
+import com.ann.truckApp.domain.enums.Type;
 import com.ann.truckApp.domain.model.Ads;
 import com.ann.truckApp.domain.model.Notification;
+import com.ann.truckApp.domain.model.Users;
 import com.ann.truckApp.domain.repository.AdsRepository;
 import com.ann.truckApp.domain.repository.NotificationRepository;
+import com.ann.truckApp.domain.repository.UserRepository;
 import com.ann.truckApp.dto.request.*;
 import com.ann.truckApp.dto.response.BaseResponse;
 import com.ann.truckApp.exceptions.ExceptionClass;
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +26,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,12 +38,19 @@ public class AdsServiceImpl {
     @Autowired
     private NotificationRepository notificationRepository;
     @Autowired
+    private UserRepository userRepository;
+    @Autowired
     private RestTemplate restTemplate;
     @Value("${whatsap.api.number}")
     private String phone;
     @Value("${token.whatsapp}")
     private String bearerToken;
-
+    @Value("${twilio.accountSid}")
+    private String twilioAccountSid;
+    @Value("${twilio.authToken}")
+    private String twilioAuthToken;
+    @Value("${twilio.phoneNumber}")
+    private String twilioPhoneNumber;
 
 
     @Transactional
@@ -66,8 +79,6 @@ public class AdsServiceImpl {
 
         log.info("Scheduled task to delete expired ads completed");
     }
-
-
 
     @Transactional
     public BaseResponse<?> addAds(AdsRequest adsRequest){
@@ -153,6 +164,9 @@ public class AdsServiceImpl {
             );
             log.info("WhatsApp message sent successfully: {}", response.getBody());
 
+            List<String> driverPhoneNumbers = getDriversPhoneNumbers();
+            sendSMSToPhoneNumbers(driverPhoneNumbers, ads);
+
             return new BaseResponse<>(response.getBody());
         } catch (HttpClientErrorException e) {
             log.error("Error sending WhatsApp message. Status code: {}, Response body: {}", e.getRawStatusCode(), e.getResponseBodyAsString());
@@ -198,5 +212,45 @@ public class AdsServiceImpl {
         return adds;
 
 
+    }
+    private List<String> getDriversPhoneNumbers() {
+        List<Users> activeDrivers = userRepository.findByType(Type.DRIVER)
+                .orElse(Collections.emptyList()); // Provide an empty list if no result is present
+
+        return activeDrivers.stream()
+                .map(Users::getPhoneNumber)
+                .collect(Collectors.toList());
+    }
+
+    private String sendSMSToPhoneNumbers(List<String> phoneNumbers, Ads ads) {
+        Twilio.init(twilioAccountSid, twilioAuthToken);
+
+        for (String phoneNumber : phoneNumbers) {
+
+            String smsMessage = createSMSMessage(ads); // Create a message based on ad details
+            try {
+                sendSMS(phoneNumber, smsMessage);
+                log.info("SMS sent successfully to phone number: {}", phoneNumber);
+            } catch (Exception e) {
+                log.error("Error sending SMS to phone number {}: {}", phoneNumber, e.getMessage());
+                return "Error sending SMS: " + e.getMessage();
+            }
+        }
+        return "SMS sent successfully to all phone numbers";
+    }
+    private String createSMSMessage(Ads ads) {
+        StringBuilder message = new StringBuilder();
+        message.append("New ad created!\n");
+        message.append("From: ").append(ads.getFrom_city()).append(", ").append(ads.getFrom_province()).append("\n");
+        message.append("To: ").append(ads.getTo_city()).append(", ").append(ads.getTo_province()).append("\n");
+        message.append("Load type: ").append(ads.getType_of_load()).append("\n");
+        return message.toString();
+    }
+    private void sendSMS(String toPhoneNumber, String message) {
+        Message.creator(
+                new com.twilio.type.PhoneNumber(toPhoneNumber),
+                new com.twilio.type.PhoneNumber(twilioPhoneNumber),
+                message
+        ).create();
     }
 }
